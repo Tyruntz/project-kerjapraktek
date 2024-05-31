@@ -1,0 +1,10 @@
+---
+const { id } = Astro.props
+---
+
+<dialog
+  id={id}
+  class="bg-zinc-950 w-1/4 border rounded-md p-4 border-zinc-100/20 backdrop:backdrop-blur-md backdrop:bg-zinc-900/60"
+>
+  <slot />
+</dialog>

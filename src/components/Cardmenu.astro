@@ -1,0 +1,51 @@
+---
+const { imgurl, nama, hargapanas,hargadingin } = Astro.props;
+---
+
+<div class="h-auto w-[150px] p-2 shadow-md">
+   <img
+      class="h-[120px] rounded-t-lg hover:opacity-50 w-full transition ease-in-out duration-150"
+      src={imgurl}
+      alt={nama}
+   />
+   <div class="grid place-content-center">
+
+      <p class="text-center">{nama}</p>
+      
+      <table>
+         <thead>
+            <tr>
+               <th>Hot</th>
+               <th>Cold</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr>
+               <td>{hargapanas?hargapanas:"-"}</td>
+            <td>{hargadingin?hargadingin:"-"}</td>
+         </tr>
+      </table>
+   </div>
+   <div class="flex justify-center items-center">
+
+      <slot />
+   </div>
+</div>
+
+<style>
+   table{
+      
+      
+   }
+   th, td{
+      padding: 0px 5px 0px 0px;
+      
+      
+      text-align: center;
+      font-size: small;
+   }
+   th{
+      
+      color: rgb(175, 175, 175);
+   }
+</style>

@@ -1,0 +1,139 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { supabase } from "../../../services/supabase";
+import Modal from "../../../components/Modal.astro";
+import Link from "../../../components/Link.astro";
+import Section from "../../../components/Section.astro";
+import LayoutAdmin from "../../../layouts/LayoutAdmin.astro";
+
+const req = Astro.request;
+if (req.method === "POST") {
+   try {
+      const formData = await req.formData();
+      const id = formData.get("id");
+
+      try {
+         const { error } = await supabase.from("menus").delete().eq("id", id);
+      } catch (error) {
+         console.log("error saat menghapus data");
+      }
+
+      console.log("berhasil menghapus data");
+   } catch (error) {
+      console.log("error saat menghapus data");
+   }
+}
+
+const { data, error } = await supabase.from("menus").select();
+const { data: kategori, error: errorKategori } = await supabase
+   .from("kategori")
+   .select();
+---
+
+<style>
+   table {
+      border: 1px solid white;
+      width: 100%;
+      background-color: rgb(145, 145, 145);
+      color: rgb(0, 0, 0);
+      text-align: center;
+      border-collapse: collapse;
+      border-spacing: 2px;
+   }
+   thead {
+      background-color: rgb(97, 97, 97);
+   }
+   th,
+   td {
+      border: 1px solid white;
+      padding: 10px;
+   }
+   .action {
+      color: rgb(0, 0, 0);
+   }
+   .action:hover {
+      color: rgb(255, 102, 0);
+   }
+</style>
+
+<LayoutAdmin title="admin page">
+   <Section>
+      <div class="w-full flex justify-start mb-3">
+         <a
+            class="bg-slate-300 w-full text-center text-black p-2 rounded-md"
+            href="/admin/menu/addMenu/addData">Tambah Menu</a
+         >
+      </div>
+      <table class="">
+         <thead>
+            <tr>
+               <th>Nama</th>
+               <th>Kategori</th>
+               <th>Harga (Panas)</th>
+               <th>Harga (Dingin)</th>
+               <th>Action</th>
+            </tr>
+         </thead>
+         <tbody>
+            {
+               data?.map((menu) => (
+                  <tr>
+                     <td>{menu.nama}</td>
+                     <td>
+                        {kategori.map((kat) => {
+                           if (kat.id == menu.kategori_id) {
+                              return kat.nama_ketegori;
+                           }
+                        })}
+                     </td>
+                     <td>{menu.harga_panas}</td>
+                     <td>{menu.harga_dingin}</td>
+                     <td>
+                        <Link
+                           clsPrimary="true"
+                           href={`/admin/menu/addMenu/${menu.id}`}
+                        >
+                           Edit
+                        </Link>
+                        <span>|</span>
+                        <button value={menu.id} class="action" id="delete">
+                           Delete
+                        </button>
+                     </td>
+                  </tr>
+               ))
+            }
+            <!-- Add your table rows here -->
+         </tbody>
+      </table>
+   </Section>
+</LayoutAdmin>
+<Modal id="modal-delete">
+   <h3 class="text-lg text-zinc-100 text-center">Are you Sure?</h3>
+   <div class="flex gap-x-4 pt-8 justify-center">
+      <form method="dialog">
+         <button class="text-white hover:text-blue-400">Close</button>
+      </form>
+      <form method="post">
+         <input type="hidden" name="id" />
+         <button class="text-white hover:text-red-400">Delete</button>
+      </form>
+   </div>
+</Modal>
+
+<script>
+   //    import { supabase } from "../../services/supabase";
+
+   document.addEventListener("astro:page-load", () => {
+      const btnDel = document.querySelectorAll("#delete");
+      const inputIdDel = document.querySelector("input[name='id']");
+      const modal = document.getElementById("modal-delete");
+
+      btnDel.forEach((btn) => {
+         btn.addEventListener("click", () => {
+            modal.showModal();
+            inputIdDel.value = btn.value;
+         });
+      });
+   });
+</script>

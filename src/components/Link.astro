@@ -1,0 +1,8 @@
+---
+const { clsPrimary = false, clsSecondary = false, cls, ...prop } = Astro.props
+
+const primary = clsPrimary && "btn-primary"
+const secondary = clsSecondary && "btn-secondary"
+---
+
+<a class:list={[primary, secondary, cls]} {...prop}><slot /></a>
