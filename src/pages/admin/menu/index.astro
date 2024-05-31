@@ -82,7 +82,7 @@ const { data: kategori, error: errorKategori } = await supabase
                      <td>
                         {kategori.map((kat) => {
                            if (kat.id == menu.kategori_id) {
-                              return kat.nama_ketegori;
+                              return kat.nama_kategori;
                            }
                         })}
                      </td>

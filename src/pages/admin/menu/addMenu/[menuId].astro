@@ -6,6 +6,7 @@ import LayoutAdmin from "../../../../layouts/LayoutAdmin.astro";
 import { supabase } from "../../../../services/supabase";
 
 import Section from "../../../../components/Section.astro";
+import { image } from "@cloudinary/url-gen/qualifiers/source";
 
 const { data: menu } = await supabase
    .from("menus")
@@ -32,36 +33,47 @@ const uploadStream = async (buffer: Uint8Array, option: any) => {
 
 if (Astro.request.method === "POST") {
    const formData = await Astro.request.formData();
-   const { nama, kategori, hargapanas,hargadingin } = Object.fromEntries(
+   const { nama, kategori, hargapanas , hargadingin } = Object.fromEntries(
       formData.entries()
    );
 
-   const file = formData.get("file") as File;
-   if (!file) {
-      return console.log("file not found");
-   }else{
-      const buffer = await file.arrayBuffer();
-      const option = {
-         path: `images/${file.name}`,
-      };
+   // const file = formData.get("file") as File;
+   // if (file === null) {
+   //     alert("file tidak boleh kosong");
+   // }else{
+   //    const buffer = await file.arrayBuffer();
+   //    const option = {
+   //       path: `images/${file.name}`,
+   //    };
 
-      const resizedBuffer = await sharp(buffer)
-         .resize({ width: 500 })
-         .toBuffer();
+   //    const resizedBuffer = await sharp(buffer)
+   //       .resize({ width: 500 })
+   //       .toBuffer();
+         
+      
 
-      await uploadStream(new Uint8Array(resizedBuffer), option);
-   }
+   //    await uploadStream(new Uint8Array(resizedBuffer), option);
+      
+      
+   // }
+   // const imageurl = `https://wxnmwtambphlaobvcbaa.supabase.co/storage/v1/object/public/images/images/${file.name}`;
 
-   const imageurl = `https://wxnmwtambphlaobvcbaa.supabase.co/storage/v1/object/public/images/images/${file.name}`;
-
+ try {
+   const hargaPanas = !hargapanas ? null : hargapanas;
+   const hargaDingin = !hargadingin ? null : hargadingin;
    const { error } = await supabase
       .from("menus")
-      .update({ nama, kategori_id: kategori, harga_panas:hargapanas, harga_dingin:hargadingin , imageurl, })
+      .update({ nama, kategori_id: kategori, harga_panas:hargaPanas, harga_dingin:hargaDingin })
       .eq("id", id);
 
    if (error) {
       console.log(error);
    }
+   
+ } catch (error) {
+   console.log(error);
+ }
+   return Astro.redirect("/admin/menu");
 }
 ---
 
@@ -79,7 +91,7 @@ if (Astro.request.method === "POST") {
                {
                   data.map((item: any) => {
                      return (
-                        <option value={item.id}>{item.nama_ketegori}</option>
+                        <option value={item.id}>{item.nama_kategori}</option>
                      );
                   })
                }

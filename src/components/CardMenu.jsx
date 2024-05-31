@@ -75,14 +75,14 @@ const CardMenu = (props) => {
               </tr>
             </thead>
             <tbody>
-              <tr className="text-center">
+              <tr className="text-center text-sm">
                 <td>
                   
-                  {props.hargapanas ? props.hargapanas + "K" : "-"}
+                  {props.hargapanas ? "Rp."+ props.hargapanas : "-"}
                 </td>
                 <td>
                   
-                  {props.hargadingin ? props.hargadingin + "K" : "-"}
+                  {props.hargadingin ? "Rp."+  props.hargadingin : "-"}
                 </td>
               </tr>
              
@@ -132,9 +132,9 @@ const CardMenu = (props) => {
                         </div>
                         <p>Harga : 
                            {selectedVariant == "Panas"
-                              ? " Rp. " + props.hargapanas * 1000
+                              ? " Rp. " + props.hargapanas
                               : selectedVariant == "Dingin"
-                              ? " Rp. " + props.hargadingin * 1000
+                              ? " Rp. " + props.hargadingin
                               : ""}
                         </p>
 
