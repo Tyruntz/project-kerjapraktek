@@ -118,6 +118,8 @@ const CardMenu = (props) => {
                              Panas
                            </button>
                            <button
+                           
+
                               className={`${
                                  selectedVariant === "Dingin"
                                     ? "bg-blue-500 text-white"

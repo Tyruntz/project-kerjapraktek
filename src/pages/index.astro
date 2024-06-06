@@ -2,32 +2,18 @@
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
 import Section from "../components/Section.astro";
-
+import Navbar from "../components/Navbar";
 
 
 ---
 
+
+
 <Layout title="Homepage">
 	<main>
+      <Navbar id1={"#home"} id2={"/menu"} id3={"#about"} id4={"#partner"} id5={"#contact"} client:load />
 		
-			<nav class="bg-white border-b px-3 uppercase fixed w-full flex justify-between h-[40px]">
-				<ul class=" flex gap-3 items-center w-auto">
-					<div class="dropdown">
-						<button class="dropbtn uppercase"><a href="#">Home🔽</a></button>
-						<div class="dropdown-content">
-						  <a href="#about">About</a>
-						  <a href="#partner">Partnership</a>
-						  <a href="#contact">Contact Us</a>
-						</div>
-						
-					  </div>
-					<li><a href="/menu">menu</a></li>	
-				</ul>
-				<div class=" flex gap-2 items-center w-auto">
-					<a href="/login" class="">Login</a>
-					<a href="/register" class="">Register</a>
-				</div>
-			</nav>
+			
 		
 		<section id="home" class="min-h-screen justify-center items-center grid">
 			<h1>

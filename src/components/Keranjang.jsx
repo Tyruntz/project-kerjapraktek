@@ -241,7 +241,9 @@ const Keranjang = () => {
                            const getToken = JSON.stringify(pilahToken);
                            const parseToken = JSON.parse(getToken);
                            const token = parseToken.token;
+                           alert("Berhasil melakukan checkout");
                            window.snap.pay(token)
+                           
                            
                         } else {
                            alert("Gagal melakukan checkout");

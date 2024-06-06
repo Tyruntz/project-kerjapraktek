@@ -1,49 +1,59 @@
 ---
-
-import Card from "../../components/Card.astro"
-import LayoutAdmin from "../../layouts/LayoutAdmin.astro"
-import { supabase } from "../../services/supabase"
-import sharp from 'sharp'
-
-
+import Card from "../../components/Card.astro";
+import Layout from "../../layouts/Layout.astro";
+import { supabase } from "../../services/supabase";
+import Datetime from "../../components/Datetime";
+import sharp from "sharp";
 ---
 
-<LayoutAdmin title="admin page">
-    <div class="p-5">
-        <Card title="Menu" href="/admin/menu" body="Tampilkan Daftar Menu" />
-
-        
-    </div>    
-</LayoutAdmin>
+<Layout title="admin page">
+   <section class="flex flex-col w-full min-h-screen">
+      <header class="border-b flex justify-between px-2 items-center bg-slate-100 border-black top-0 left-0 h-14 w-full">
+         <h1>DASHBOARD JIMA COFFEE</h1>
+         <Datetime client:load />
+      </header>
+      <main class="flex p-3 border ">
+         <div
+            class="h-[500px] flex flex-col justify-center items-center border border-black w-full"
+         >
+            <h1>List Pesanan Disini</h1>
+         </div>
+         <div class="p-5">
+            <Card
+               title="Menu"
+               href="/admin/menu"
+               body="Tampilkan Daftar Menu"
+            />
+         </div>
+      </main>
+   </section>
+</Layout>
 
 <style>
-    form {
-        margin-top: 10px;
-        padding: 5px;
-        background-color: darkcyan
-        
-    }
-    input {
-        margin-bottom: 3px;
-        width: 100%;
-        border-radius: 8px;
-
-    }
-    select {
-        color: black;
-        margin-bottom: 3px;
-        width: 100%;
-        border-radius: 8px;
-    }
-    button {
-        width: 100%;
-        border-radius: 8px;
-        background-color: darkorange;
-        color: white;
-        padding: 5px;
-    }
-    button:hover {
-        background-color: rgb(139, 74, 0);
-    }
+   form {
+      margin-top: 10px;
+      padding: 5px;
+      background-color: darkcyan;
+   }
+   input {
+      margin-bottom: 3px;
+      width: 100%;
+      border-radius: 8px;
+   }
+   select {
+      color: black;
+      margin-bottom: 3px;
+      width: 100%;
+      border-radius: 8px;
+   }
+   button {
+      width: 100%;
+      border-radius: 8px;
+      background-color: darkorange;
+      color: white;
+      padding: 5px;
+   }
+   button:hover {
+      background-color: rgb(139, 74, 0);
+   }
 </style>
-
