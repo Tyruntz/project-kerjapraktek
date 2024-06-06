@@ -154,7 +154,7 @@ const Keranjang = () => {
                         />
                         <input type="hidden" name="total" value={total} />
                      </div>
-                     <div className="flex flex-col  pt-0 gap-2  ">
+                     <div className="flex flex-col w-full  pt-0 gap-2  ">
                         <label htmlFor="dataDiri">Data Diri</label>
                         <input
                            onChange={(e) => {
@@ -168,7 +168,7 @@ const Keranjang = () => {
                            name="nama"
                            type="text"
                         />
-                        <div className="flex gap-2">
+                        <div className="grid grid-flow-col grid-cols-2 gap-2">
                            <input
                               onChange={(e) => {
                                  setDataDiri({
@@ -241,7 +241,7 @@ const Keranjang = () => {
                            const getToken = JSON.stringify(pilahToken);
                            const parseToken = JSON.parse(getToken);
                            const token = parseToken.token;
-                           alert("Berhasil melakukan checkout");
+                           
                            window.snap.pay(token)
                            
                            
