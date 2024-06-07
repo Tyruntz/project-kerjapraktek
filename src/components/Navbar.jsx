@@ -6,6 +6,7 @@ const Navbar = ({id1,id2,id3,id4,id5}) => {
 
     useEffect(() => {
         const handleActive = () => {
+            
            
         }
     }
