@@ -78,11 +78,11 @@ const CardMenu = (props) => {
               <tr className="text-center text-sm">
                 <td>
                   
-                  {props.hargapanas ? "Rp."+ props.hargapanas : "-"}
+                  {props.hargapanas ? (props.hargapanas/1000)+"K" : "-"}
                 </td>
                 <td>
                   
-                  {props.hargadingin ? "Rp."+  props.hargadingin : "-"}
+                  {props.hargadingin ? (props.hargadingin/1000)+"K" : "-"}
                 </td>
               </tr>
              

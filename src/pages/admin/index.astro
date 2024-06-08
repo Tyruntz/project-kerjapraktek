@@ -3,20 +3,55 @@ import Card from "../../components/Card.astro";
 import Layout from "../../layouts/Layout.astro";
 import { supabase } from "../../services/supabase";
 import Datetime from "../../components/Datetime";
+import ListPesanan from "../../components/ListPesanan";
 import sharp from "sharp";
+
+const { data, error } = await supabase.from("transaksi").select("*");
+;
+
 ---
+
+
 
 <Layout title="admin page">
    <section class="flex flex-col w-full min-h-screen">
-      <header class="border-b flex justify-between px-2 items-center bg-slate-100 border-black top-0 left-0 h-14 w-full">
+      <header
+         class="border-b flex justify-between px-2 items-center bg-slate-100 border-black top-0 left-0 h-14 w-full"
+      >
          <h1>DASHBOARD JIMA COFFEE</h1>
          <Datetime client:load />
       </header>
-      <main class="flex p-3 border ">
+      <main class="flex p-3 border">
          <div
-            class="h-[500px] flex flex-col justify-center items-center border border-black w-full"
+            class="h-[500px] flex flex-col justify-start p-2 items-start border border-black w-full"
          >
-            <h1>List Pesanan Disini</h1>
+            <table border="1" class="w-full">
+               <tr class="grid grid-cols-5 border-collapse">
+                  <th>Id Pesanan</th>
+                  <th>Nama Pemesan</th>
+                  <th>Item Pesanan</th>
+                  <th>No Meja</th>
+                  <th>Total</th>
+               </tr>
+            </table>
+           {
+               data.map((item) => (
+                   <ListPesanan
+                     id={item.id}
+                     nama={item.nama} 
+                     items={JSON.parse(item.items)
+                         .map((item) => item.name)
+                         .join(", ")
+                     }
+                     jumlah={JSON.parse(item.items)
+                         .map((item) => item.quantity)
+                         .join(", ")
+                     }  
+                     meja={item.meja}
+                     total={item.total}
+                   />
+               ))
+           }
          </div>
          <div class="p-5">
             <Card

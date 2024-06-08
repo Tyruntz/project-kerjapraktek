@@ -243,6 +243,20 @@ const Keranjang = () => {
                            const token = parseToken.token;
                            
                            window.snap.pay(token)
+
+                           const res = await fetch("/api/insertData.json", {
+                              method: "POST",
+                              body: JSON.stringify(
+                                 
+                              objData),
+
+                           });
+                           const requestDatabase = await res.json();
+                           if (requestDatabase.success) {
+                              alert("Berhasil melakukan checkout");
+                              window.location.reload();
+                              
+                           }
                            
                            
                         } else {
