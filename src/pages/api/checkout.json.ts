@@ -9,7 +9,7 @@ export const GET: APIRoute = async (context) => {
          data: {
             message: "Hello from the server!",
          },
-      })
+      }) 
    );
 };
 

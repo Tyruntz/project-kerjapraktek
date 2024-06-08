@@ -1,7 +1,7 @@
 export const sectionIds = [
     "home",
     "about",
-    "menu",
+    "/menu",
     "partner",
     "contact",
     

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { IoCart } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 import { sectionIds } from "./sectionids.jsx";
 // import { Link, useLocation } from "react-router-dom";
@@ -40,6 +40,8 @@ const Navbar = () => {
       }
     }
   };
+  
+
 
   useEffect(() => {
     const scrollHandler = () => {
@@ -110,10 +112,11 @@ const Navbar = () => {
                       scrollToSection(sectionId);
                     }}
                     className="p-2 hover:text-blue-400 uppercase"
-                  >
+                  >{sectionId === "/menu"?<a href="/menu">Menu</a>:
                     
-                    <a href={`${sectionId}`}  className={activeLink === sectionId ? "text-orange-700 underline" : ""}>{sectionId}</a>
-                  </li>
+                    <label  className={activeLink === sectionId ? "text-orange-700 underline" : ""}>{sectionId}</label>
+              }
+                    </li>
                 );
               })}
             </ul>

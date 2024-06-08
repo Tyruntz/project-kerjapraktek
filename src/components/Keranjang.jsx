@@ -5,6 +5,14 @@ import { cartItems, isCartOpen, removeItemFromCart } from "../stores/cartStore";
 import "./keranjang.css";
 
 const Keranjang = () => {
+   useEffect(() => {
+      if (!localStorage.getItem('reloaded')) {
+         localStorage.setItem('reloaded', 'true');
+         window.location.reload();
+       } else {
+         localStorage.removeItem('reloaded');
+       }
+    }, []);
    const $cartItems = useStore(cartItems);
    const $isCartOpen = useStore(isCartOpen);
    const [quantity, setQuantity] = useState(1);
@@ -19,6 +27,32 @@ const Keranjang = () => {
       (acc, item) => acc + item.price * item.quantity,
       0
    );
+   const [tokenFix, setToken] = useState(null);
+   const [requestSuccess, setRequestSuccess] = useState(false);
+
+   useEffect(() => {
+      if (tokenFix) {
+         // Memanggil Midtrans Snap
+         window.snap.pay(tokenFix);
+
+         // Melakukan permintaan ke server setelah mendapatkan token
+         const postData = async () => {
+            
+         };
+
+         postData();
+      }
+   }, [tokenFix]);
+
+   useEffect(() => {
+      if (requestSuccess) {
+         alert('Berhasil melakukan checkout');
+         window.location.reload();
+      }
+   }, [requestSuccess]);
+
+
+
 
    const [dataDiri, setDataDiri] = useState({
       nama: "",
@@ -208,17 +242,17 @@ const Keranjang = () => {
                   <button
                      className={
                         !$cartItems.length ||
-                        !dataDiri.nama ||
-                        !dataDiri.nohp ||
-                        !dataDiri.email
+                           !dataDiri.nama ||
+                           !dataDiri.nohp ||
+                           !dataDiri.email
                            ? "bg-gray-300 text-white rounded-md p-2 w-full"
                            : "bg-blue-500 text-white rounded-md p-2 w-full"
                      }
                      disabled={
                         !$cartItems.length ||
-                        !dataDiri.nama ||
-                        !dataDiri.nohp ||
-                        !dataDiri.email
+                           !dataDiri.nama ||
+                           !dataDiri.nohp ||
+                           !dataDiri.email
                            ? true
                            : false
                      }
@@ -241,36 +275,31 @@ const Keranjang = () => {
                            const getToken = JSON.stringify(pilahToken);
                            const parseToken = JSON.parse(getToken);
                            const token = parseToken.token;
-                           
-                           window.snap.pay(token)
-
-                           const res = await fetch("/api/insertData.json", {
-                              method: "POST",
-                              body: JSON.stringify(
-                                 
-                              objData),
-
+                           setToken(token)
+                           const res = await fetch('/api/insertData.json', {
+                              method: 'POST',
+                              body: JSON.stringify(objData),
                            });
+               
                            const requestDatabase = await res.json();
                            if (requestDatabase.success) {
-                              alert("Berhasil melakukan checkout");
-                              window.location.reload();
                               
                            }
-                           
-                           
+
+
+
                         } else {
                            alert("Gagal melakukan checkout");
                            console.log(requestData);
                         }
-                        
+
                      }}
                   >
                      Checkout
                   </button>
                   <div id="token">
-     
-    </div>
+
+                  </div>
                </form>
             </footer>
          </div>

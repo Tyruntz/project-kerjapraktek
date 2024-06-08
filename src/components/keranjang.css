@@ -6,6 +6,7 @@
  }
  footer {
     flex: 0 0 200px;
+    
  }
 
  .cart.active {
@@ -47,4 +48,5 @@ footer {
     justify-content: space-between;
     background-color: #ccc;
     text-align: center;
+    
 }
