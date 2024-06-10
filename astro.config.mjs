@@ -6,6 +6,7 @@ import react from "@astrojs/react";
 import alpinejs from "@astrojs/alpinejs";
 
 
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind(), icon(), react(), alpinejs()],
@@ -13,4 +14,5 @@ export default defineConfig({
   adapter: node({
     mode: "standalone"
   })
+  
 });
