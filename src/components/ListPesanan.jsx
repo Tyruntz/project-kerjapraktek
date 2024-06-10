@@ -11,10 +11,10 @@ const ListPesanan = (props) => {
   </p>
   <p>
     {props.items
-    }
+    }x{props.jumlah}
   </p>
   <p>
-    {props.jumlah}
+    
   </p>
   <p>
     {props.nomeja}

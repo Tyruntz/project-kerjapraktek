@@ -45,7 +45,7 @@ const { data, error } = await supabase.from("transaksi").select("*");
                      }
                      jumlah={JSON.parse(item.items)
                          .map((item) => item.quantity)
-                         .join(", ")
+                         
                      }  
                      meja={item.meja}
                      total={item.total}
@@ -53,6 +53,7 @@ const { data, error } = await supabase.from("transaksi").select("*");
                ))
            }
          </div>
+         
          <div class="p-5">
             <Card
                title="Menu"
