@@ -6,16 +6,16 @@ import { IoLogoWhatsapp } from "react-icons/io";
 const Footer = () => {
   return (
     <div id="lokasi">
-      <div className="bg-slate-300 h-[500px] lg:h-[300px] grid">
+      <div className="bg-[#2f0000] h-[500px] lg:h-[300px] grid">
         <div className=" grid place-content-center ">
           <div className=" text-center">
-            <h1 className="font-bold text-5xl">
-              <span className="text-yellow-400">JIM</span>A
+            <h1 className="font-bold text-5xl ">
+              <span className="text-yellow-400">JIM</span><span className="text-[#ba0000]">A</span> 
             </h1>
-            <p>Coffee House</p>
+            <p className="text-white">Coffee House</p>
           </div>
         </div>
-        <div className="m-3 grid content-start">
+        <div className="m-3 grid content-start text-white">
           <h1 className="my-3">Costumer Service</h1>
           <div className=" flex flex-col gap-4">
             <div className="mx-3 flex items-center gap-3">

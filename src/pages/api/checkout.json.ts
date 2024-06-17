@@ -21,8 +21,14 @@ let snap = new midtransClient.Snap({
    serverKey: "SB-Mid-server-y4FbNb0yJUvHTL4hvSJ3IAF_",
 });
 
+function insertOrder(data: any) {
+   return supabase.from("order").insert([data]);
+}
+
+
+
 export const POST: APIRoute = async ({ request }) => {
-   const { id, items, total, nama, nohp, email } = await request.json();
+   const { id, items, total, meja, nama, nohp, email } = await request.json();
    
 
    let parameter = {
@@ -38,13 +44,30 @@ export const POST: APIRoute = async ({ request }) => {
     },
       
     };
+    let dataOrder = {
+      
+      "id": id,
+      "total": total,
+      "table": meja,
+      "status": "pending",
+    
+    "item_detail": JSON.parse(items),
+    "customer_detail": {
+      "first_name": nama,
+      "email": email,
+      "phone": nohp,
+    },
+      
+    };
    try {
       const token = await snap.createTransaction(parameter);
+      await insertOrder(dataOrder);
       
       return new Response(
          JSON.stringify({
             success: true,
             token: token,
+            data: dataOrder,
          })
       );
       
@@ -59,27 +82,5 @@ export const POST: APIRoute = async ({ request }) => {
       );
    }
 
-   // try {
-   //     const { data: order, error } = await supabase
-   //         .from('order')
-   //         .insert([
-   //             data
-   //         ]);
-   //     if (error) {
-   //         throw error;
-   //     }
-   // } catch (error) {
-   //     return new Response(
-   //         JSON.stringify({
-   //             success: false,
-   //             error: error.message,
-   //         })
-   //     );
-   // }
-//    return new Response(
-//       JSON.stringify({
-//          success: true,
-//          parameter: parameter,
-//       })
-//    );
+   
 };

@@ -7,12 +7,14 @@ import alpinejs from "@astrojs/alpinejs";
 
 
 
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind(), icon(), react(), alpinejs()],
   output: "server",
   adapter: node({
     mode: "standalone"
-  })
+  }),
+  
   
 });

@@ -1,95 +1,80 @@
 ---
+const nomorMeja = Astro.url.searchParams.get("meja") || "1"
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
-import Section from "../components/Section.astro";
 import Footer from "../components/Footer";
 import About from "../components/About";
-// import Navbar from "../components/Navbar";
 import Kontak from "../components/Kontak";
 import Partnership from "../components/Partnership";
 import Navbar from "../components/navBar/Navbar";
-
-
-
+console.log(nomorMeja)
 ---
 
-
-
 <Layout title="Homepage">
-	<main>
+   <main>
       <!-- <Navbar id1={"#home"} id2={"/menu"} id3={"#about"} id4={"#partner"} id5={"#contact"} client:load /> -->
-		<Navbar client:load />
-			
-		
-		<section id="home" class="bg-white flex flex-col justify-center items-center min-h-screen">
-			<div class="">
-            <h2 class='text-4xl text-center text-gray-900'>Welcome to <span class='text-orange-400'>Jima</span></h2>
-            <p class='text-center text-gray-600'>The best place to eat</p>
-        </div>
-        <div class='flex justify-center gap-3'>
-            <button class='bg-teal-400 h-10 w-32 rounded border-2 border-black shadow hover:scale-110 ease-in-out duration-150'><a href="/menu">Order Now</a></button>
-            <button class='bg-yellow-500 h-10 w-32 rounded border-2 border-black shadow hover:scale-110 ease-in-out duration-150'>Reservasi</button>      
-        </div>
-		</section>
-		<section id="about" class="min-h-screen justify-center items-center grid">
-			<About client:load />
-		</section>
-		<section id="partner" class="min-h-screen justify-center items-center grid">
-			<Partnership client:load/>
-		</section>
-		<section id="contact" class="min-h-screen justify-center items-center grid">
-			<Kontak client:load />
-		</section>
-      <Footer client:load />
-		
+      <Navbar client:load />
 
-		
-	</main>
+      <section id="home" class="grid grid-rows-4 items-center min-h-screen">
+         <div class="row-span-2 grid lg:justify-center grid-flow-col content-center px-5 h-full">
+            <div class="col-span-2 lg:flex lg:gap-4">
+               <h1 class="text-5xl lg:text-7xl">Welcome to</h1>
+               <h1 class="text-orange-500 text-5xl lg:text-7xl">Jima</h1>
+               <div class=" text-right lg:flex lg:flex-col lg:items-center lg:justify-center lg:text-xl">
+                  <p class="">
+                     Inspirasi datang
+   
+                  </p>
+                  <p> dari secangkir kopi </p>
+               </div>
+            </div>
+            
+         </div>
+         <div class="row-span-2 h-full grid p-8">
+            <ul class="lg:flex lg:items-center lg:justify-center lg:gap-4">
+               <li
+                  class="bg-red-950 lg:h-[100px] rounded-md bg-opacity-60 hover:bg-opacity-100 hover:text-white transition-all ease-in-out p-3 mb-3 w-[300px]"
+               >
+                  <a class="flex justify-between items-center" href={`/menu?meja=${nomorMeja}`}
+                     ><div><p>Order Now</p><p class="text-sm">
+                        Jelajahi Menu Jima.
+                     </p></div><img src="src/assets/icons/cup.png" class="h-[40px] w-[40px]" alt="" ></a
+                  >
+               </li>
+               <li
+                  class="bg-red-950 lg:h-[100px] rounded-md bg-opacity-60 hover:bg-opacity-100 hover:text-white transition-all ease-in-out p-3 mb-3 w-[300px]"
+               >
+                  <a class="flex justify-between items-center" href="/reservasi"
+                     ><div><p>Reservasi</p><p class="text-sm">
+                        Boking Meja Sebelum Kehabisan.
+                     </p></div><img src="src/assets/icons/booking.png" class="h-[40px] w-[40px]" alt=""></a
+                  >
+               </li>
+            </ul>
+         </div>
+      </section>
+      <section id="about" class="min-h-screen p-3">
+         <About client:load />
+      </section>
+      <section id="partner" class="justify-center items-center grid">
+         <Partnership client:load />
+      </section>
+      <section id="contact" class="justify-center items-center grid">
+         <Kontak client:load />
+      </section>
+      <Footer client:load />
+   </main>
 </Layout>
 
 <style>
-	.dropdown {
-            position: relative;
-            display: inline-block;
-			
-        }
+   #home {
+      background-image: url("src/assets/images/bg3.png");
+      background-size: cover;
+      background-position:;
+   }
 
-        /* Dropdown Content (Hidden by Default) */
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-        /* Links inside the dropdown */
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        /* Change color of dropdown links on hover */
-        .dropdown-content a:hover {background-color: #f1f1f1;}
-
-        /* Show the dropdown menu on hover */
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        /* Change the background color of the dropdown button when the dropdown content is shown */
-        .dropdown:hover .dropbtn {
-            background-color: #8e653e;
-        }
    main {
-	  display: flex;
-	  flex-direction: column;
-
-      
-     
+      display: flex;
+      flex-direction: column;
    }
    .astro-a {
       position: absolute;
@@ -100,13 +85,7 @@ import Navbar from "../components/navBar/Navbar";
       height: auto;
       z-index: -1;
    }
-   h1 {
-      font-size: 4rem;
-      font-weight: 700;
-      line-height: 1;
-      text-align: center;
-      margin-bottom: 1em;
-   }
+
    .text-gradient {
       background-image: var(--accent-gradient);
       -webkit-background-clip: text;

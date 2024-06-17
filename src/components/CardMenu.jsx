@@ -108,11 +108,12 @@ const CardMenu = (props) => {
                            <button
                               className={`${
                                  selectedVariant === "Panas"
-                                    ? "bg-blue-500 text-white"
+                                    ? "bg-[#860101] text-white"
                                     : "bg-gray-300 text-black"
-                              } p-4 flex flex-col justify-center items-center rounded-md mr-2`}
+                              } ${!props.hargapanas?"opacity-25":"opacity-100"} p-4 flex flex-col justify-center items-center rounded-md mr-2`}
                               onClick={() => setSelectedVariant("Panas")}
                               disabled={props.hargapanas === null}
+                              
                            >
                              <FaMugHot className="h-6 w-6" />
                              Panas
@@ -122,9 +123,9 @@ const CardMenu = (props) => {
 
                               className={`${
                                  selectedVariant === "Dingin"
-                                    ? "bg-blue-500 text-white"
+                                    ? "bg-[#860101] text-white"
                                     : "bg-gray-300 text-black"
-                              } p-4 flex flex-col justify-center items-center  rounded-md`}
+                              } ${!props.hargadingin?"opacity-25":"opacity-100"} p-4 flex flex-col justify-center items-center  rounded-md`}
                               onClick={() => setSelectedVariant("Dingin")}
                               disabled={props.hargadingin === null}
                            >
@@ -142,7 +143,7 @@ const CardMenu = (props) => {
 
                         <button
                            onClick={handleAddToCart}
-                           className="bg-blue-500 hover:scale-110 transition-all ease-in-out text-white px-4 py-2 rounded-md mt-2"
+                           className="bg-[#ffb300] hover:scale-110 transition-all ease-in-out  px-4 py-2 rounded-md mt-2"
                         >
                            Add to Cart
                         </button>
@@ -152,14 +153,10 @@ const CardMenu = (props) => {
             </div>
             <div className="flex justify-center items-center">
                <button
-<<<<<<< HEAD
-                  className="bg-yellow-400 py-1 text-sm flex justify-center items-center w-full rounded-md"
-=======
-                  className="bg-yellow-400 py-1 text-sm flex justify-center items-center w-full rounded-md "
->>>>>>> origin/master
+                  className="bg-[#740101] py-1 text-sm flex justify-center items-center w-full rounded-md"
                   onClick={openModal}
                >
-                  <FaCartPlus className="h-4 w-4"  />
+                  <FaCartPlus className="h-4 w-4 text-white"  />
                </button>
             </div>
          </div>

@@ -1,31 +1,23 @@
-import React from 'react'
+import React from "react";
 
-const ListPesanan = (props) => {
-    
-  return (
-    <>
-    <div className="grid h-14 w-full grid-cols-6 content-center justify-items-center gap-2 rounded-md bg-red-400 p-5">
-  <p>{props.id}</p>
-  <p>
-    {props.nama}
-  </p>
-  <p>
-    {props.items
-    }x{props.jumlah}
-  </p>
-  <p>
-    
-  </p>
-  <p>
-    {props.nomeja}
-  </p>
-  <p>
-    {props.total}
-  </p>
-</div>
+const ListPesanan = ({ order }) => {
+   return (
+      <>
+         <div className="grid h-14 w-full grid-cols-6 content-center justify-items-center gap-2 rounded-md bg-red-400 p-5">
+           {
+              order.map((item) => (
+                <div key={item.id} className="">
+                    
+                    <div className="">{item.customer_detail.email}</div>
+                    <div className="">{item.item_detail.quantity}</div>
+                    <div className="">{item.table}</div>
+                    <div className="">{item.status}</div>
+                </div>
+              ))
+           }
+         </div>
+      </>
+   );
+};
 
-    </>
-  )
-}
-
-export default ListPesanan
+export default ListPesanan;

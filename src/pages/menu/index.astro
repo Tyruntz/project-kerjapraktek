@@ -5,6 +5,7 @@ import { supabase } from "../../services/supabase";
 import Keranjang from "../../components/Keranjang.jsx";
 import CardMenu from "../../components/CardMenu.jsx";
 import { useEffect, useState } from "react";
+import DaftarMenu from "../../components/DaftarMenu";
 
 
 //get data kategori
@@ -44,54 +45,18 @@ if (req.method === "POST") {
 }
 
 
-//fetch data order
-
 ---
 
 
 <Layout title="Menu">
    <header
-      class="fixed h-12 top-0 w-full bg-slate-300 flex justify-between items-center p-2"
-   >
-      <h1>Daftar Menu</h1>
+      class="fixed h-12 top-0 w-full bg-[#000000] flex justify-between items-center p-2"
+   ><a class="text-white" href="/"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></a>
+      <h1 class="text-white">Daftar Menu</h1>
       <Keranjang client:load/>
    </header>
-   <div class="mt-[3.5rem]">
-      <div class="border-b flex p-1 justsify-end gap-3">
-         <input
-            class="rounded-md w-full"
-            type="search"
-            placeholder="Cari Menu"
-         />
-         <button class="border hover:bg-slate-400 px-5 bg-slate-500 rounded-md"
-            >Cari</button
-         >
-      </div>
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-3">
-         {
-            data.map((item, index) => {
-               return (
-                  <Kategori title={item.nama_kategori}>
-                     {getMenuByCategory(item.id).then((data) => {
-                        return data.map((menu) => {
-                           return (
-                              <CardMenu
-                                 client:load
-                                 id={menu.id}
-                                 nama={menu.nama}
-                                 hargapanas={menu.harga_panas}
-                                 hargadingin={menu.harga_dingin}
-                                 imgurl={menu.imageurl}
-                              />
-                           );
-                        });
-                     })}
-                  </Kategori>
-               );
-            })
-         }
-      </div>
-   </div>
+   <DaftarMenu client:load/>
+   
 </Layout>
 
 <style>

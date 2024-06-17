@@ -1,0 +1,36 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    
+}
+
+thead {
+    background-color: #f9f9f9;
+    
+}
+
+th, td {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    text-align: center; /* Mengatur teks agar berada di tengah */
+    vertical-align: middle;
+}
+ tbody {
+    display: block;
+    max-height: 400px; /* Atur tinggi maksimal untuk bagian badan tabel */
+    overflow-y: auto;
+}
+thead, tbody tr {
+    
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+ 
+ .action {
+    color: rgb(0, 0, 0);
+ }
+ .action:hover {
+    color: rgb(255, 102, 0);
+ }

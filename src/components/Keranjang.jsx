@@ -4,15 +4,30 @@ import { useStore } from "@nanostores/react";
 import { cartItems, isCartOpen, removeItemFromCart } from "../stores/cartStore";
 import "./keranjang.css";
 
+
 const Keranjang = () => {
+   const [table, setTable] = useState(0);
+
    useEffect(() => {
-      if (!localStorage.getItem('reloaded')) {
-         localStorage.setItem('reloaded', 'true');
-         window.location.reload();
-       } else {
-         localStorage.removeItem('reloaded');
-       }
-    }, []);
+      // Ambil nilai 'meja' dari URL
+      const meja = new URLSearchParams(window.location.search).get('meja');
+
+      if (meja) {
+         // Set nilai 'meja' ke state
+         setTable(Number(meja));
+
+         // Jika halaman belum direload sebelumnya, reload halaman
+         if (!localStorage.getItem("reloaded")) {
+            localStorage.setItem("reloaded", "true");
+            window.location.reload();
+         } else {
+            // Setelah reload, hapus item dari localStorage
+            localStorage.removeItem("reloaded");
+         }
+      }
+   }, []);
+
+   
    const $cartItems = useStore(cartItems);
    const $isCartOpen = useStore(isCartOpen);
    const [quantity, setQuantity] = useState(1);
@@ -31,14 +46,13 @@ const Keranjang = () => {
    const [requestSuccess, setRequestSuccess] = useState(false);
 
    useEffect(() => {
+
       if (tokenFix) {
          // Memanggil Midtrans Snap
          window.snap.pay(tokenFix);
 
          // Melakukan permintaan ke server setelah mendapatkan token
-         const postData = async () => {
-            
-         };
+         const postData = async () => {};
 
          postData();
       }
@@ -46,13 +60,10 @@ const Keranjang = () => {
 
    useEffect(() => {
       if (requestSuccess) {
-         alert('Berhasil melakukan checkout');
+         alert("Berhasil melakukan checkout");
          window.location.reload();
       }
    }, [requestSuccess]);
-
-
-
 
    const [dataDiri, setDataDiri] = useState({
       nama: "",
@@ -72,7 +83,7 @@ const Keranjang = () => {
                viewBox="0 0 24 24"
                strokeWidth={1.5}
                stroke="currentColor"
-               className="w-6 h-6"
+               className="w-6 h-6 text-white"
             >
                <path
                   strokeLinecap="round"
@@ -176,6 +187,9 @@ const Keranjang = () => {
                <form action="">
                   <div className="flex flex-col justify-center items-center gap-1">
                      <div className="flex gap-1 w-full justify-center">
+                        <input type="hidden" name="meja" value={
+                           table
+                        } />
                         <input
                            type="hidden"
                            name="id"
@@ -242,17 +256,17 @@ const Keranjang = () => {
                   <button
                      className={
                         !$cartItems.length ||
-                           !dataDiri.nama ||
-                           !dataDiri.nohp ||
-                           !dataDiri.email
+                        !dataDiri.nama ||
+                        !dataDiri.nohp ||
+                        !dataDiri.email
                            ? "bg-gray-300 text-white rounded-md p-2 w-full"
                            : "bg-blue-500 text-white rounded-md p-2 w-full"
                      }
                      disabled={
                         !$cartItems.length ||
-                           !dataDiri.nama ||
-                           !dataDiri.nohp ||
-                           !dataDiri.email
+                        !dataDiri.nama ||
+                        !dataDiri.nohp ||
+                        !dataDiri.email
                            ? true
                            : false
                      }
@@ -275,31 +289,17 @@ const Keranjang = () => {
                            const getToken = JSON.stringify(pilahToken);
                            const parseToken = JSON.parse(getToken);
                            const token = parseToken.token;
-                           setToken(token)
-                           const res = await fetch('/api/insertData.json', {
-                              method: 'POST',
-                              body: JSON.stringify(objData),
-                           });
-               
-                           const requestDatabase = await res.json();
-                           if (requestDatabase.success) {
-                              
-                           }
-
-
-
+                           setToken(token);
+                           
                         } else {
                            alert("Gagal melakukan checkout");
                            console.log(requestData);
                         }
-
                      }}
                   >
                      Checkout
                   </button>
-                  <div id="token">
-
-                  </div>
+                  <div id="token"></div>
                </form>
             </footer>
          </div>
