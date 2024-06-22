@@ -10,7 +10,7 @@ const Footer = () => {
         <div className=" grid place-content-center ">
           <div className=" text-center">
             <h1 className="font-bold text-5xl ">
-              <span className="text-yellow-400">JIM</span><span className="text-[#ba0000]">A</span> 
+              <span className="text-[#FDC82F]">JIM</span><span className="text-[#A3080C]">A</span> 
             </h1>
             <p className="text-white">Coffee House</p>
           </div>

@@ -108,7 +108,7 @@ const Reservasi = () => {
 
                <button
                   type="submit"
-                  className="w-full flex justify-center items-center py-2 px-4 gap-2 bg-[#6f0000] hover:bg-[#9c0000] text-white  font-bold rounded-md"
+                  className="w-full flex justify-center items-center py-2 px-4 gap-2 bg-[#A3080C] hover:bg-[#ff1d1d] text-white  font-bold rounded-md"
                >
                   Lanjutkan Ke Whatsapp{" "}
                   <span>

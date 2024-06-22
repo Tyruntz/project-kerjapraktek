@@ -1,12 +1,12 @@
 ---
-const nomorMeja = Astro.url.searchParams.get("meja") || "1"
+const nomorMeja = Astro.url.searchParams.get("meja") || "1";
 import Layout from "../layouts/Layout.astro";
 import Footer from "../components/Footer";
 import About from "../components/About";
 import Kontak from "../components/Kontak";
 import Partnership from "../components/Partnership";
 import Navbar from "../components/navBar/Navbar";
-console.log(nomorMeja)
+console.log(nomorMeja);
 ---
 
 <Layout title="Homepage">
@@ -15,38 +15,52 @@ console.log(nomorMeja)
       <Navbar client:load />
 
       <section id="home" class="grid grid-rows-4 items-center min-h-screen">
-         <div class="row-span-2 grid lg:justify-center grid-flow-col content-center px-5 h-full">
-            <div class="col-span-2 lg:flex lg:gap-4">
+         <div
+            class="row-span-2 grid lg:justify-center grid-flow-col content-center px-5 h-full"
+         >
+            <div class="col-span-2 lg:flex font-extrabold lg:gap-4">
                <h1 class="text-5xl lg:text-7xl">Welcome to</h1>
                <h1 class="text-orange-500 text-5xl lg:text-7xl">Jima</h1>
-               <div class=" text-right lg:flex lg:flex-col lg:items-center lg:justify-center lg:text-xl">
-                  <p class="">
-                     Inspirasi datang
-   
-                  </p>
-                  <p> dari secangkir kopi </p>
+               <div
+                  class="text-right lg:flex lg:flex-col lg:items-center lg:justify-center lg:text-xl"
+               >
+                  <p class="">Inspirasi datang</p>
+                  <p>dari secangkir kopi</p>
                </div>
             </div>
-            
          </div>
          <div class="row-span-2 h-full grid p-8">
             <ul class="lg:flex lg:items-center lg:justify-center lg:gap-4">
                <li
-                  class="bg-red-950 lg:h-[100px] rounded-md bg-opacity-60 hover:bg-opacity-100 hover:text-white transition-all ease-in-out p-3 mb-3 w-[300px]"
+                  class="bg-[#191919] lg:h-[100px] rounded-md text-white  p-3 mb-3 w-[300px]"
                >
-                  <a class="flex justify-between items-center" href={`/menu?meja=${nomorMeja}`}
-                     ><div><p>Order Now</p><p class="text-sm">
-                        Jelajahi Menu Jima.
-                     </p></div><img src="https://wxnmwtambphlaobvcbaa.supabase.co/storage/v1/object/public/images/images/JIMA_POST_-_13.png" class="h-[40px] w-[40px]" alt="" ></a
+                  <a
+                     class="flex justify-between items-center"
+                     href={`/menu?meja=${nomorMeja}`}
+                     ><div>
+                        <p>Order Now</p><p class="text-sm">
+                           Jelajahi Menu Jima.
+                        </p>
+                     </div><img
+                        src="https://wxnmwtambphlaobvcbaa.supabase.co/storage/v1/object/public/images/images/JIMA_POST_-_13.png"
+                        class="h-[40px] w-[40px]"
+                        alt=""
+                     /></a
                   >
                </li>
                <li
-                  class="bg-red-950 lg:h-[100px] rounded-md bg-opacity-60 hover:bg-opacity-100 hover:text-white transition-all ease-in-out p-3 mb-3 w-[300px]"
+                  class="bg-[#191919] lg:h-[100px] rounded-md text-white  p-3 mb-3 w-[300px]"
                >
                   <a class="flex justify-between items-center" href="/reservasi"
-                     ><div><p>Reservasi</p><p class="text-sm">
-                        Boking Meja Sebelum Kehabisan.
-                     </p></div><img src="https://wxnmwtambphlaobvcbaa.supabase.co/storage/v1/object/public/images/images/JIMA_POST_-_12.png" class="h-[40px] w-[40px]" alt=""></a
+                     ><div>
+                        <p>Reservasi</p><p class="text-sm">
+                           Boking Meja Sebelum Kehabisan.
+                        </p>
+                     </div><img
+                        src="https://wxnmwtambphlaobvcbaa.supabase.co/storage/v1/object/public/images/images/JIMA_POST_-_12.png"
+                        class="h-[40px] w-[40px]"
+                        alt=""
+                     /></a
                   >
                </li>
             </ul>

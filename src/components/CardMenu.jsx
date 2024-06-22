@@ -153,7 +153,7 @@ const CardMenu = (props) => {
             </div>
             <div className="flex justify-center items-center">
                <button
-                  className="bg-[#740101] py-1 text-sm flex justify-center items-center w-full rounded-md"
+                  className="bg-[#A3080C] py-1 text-sm flex justify-center items-center w-full rounded-md"
                   onClick={openModal}
                >
                   <FaCartPlus className="h-4 w-4 text-white"  />
