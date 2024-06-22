@@ -16,7 +16,7 @@ const About = (props) => {
                </div>
                <div className=" w-full">
                   <img
-                     src="src\assets\images\about1.jpg"
+                     src="https://wxnmwtambphlaobvcbaa.supabase.co/storage/v1/object/public/images/images/C1B9322C-4591-46BB-B357-A4289FB3D84E.jpg"
                      alt="coffee"
                      className="w-full h-[400px] object-cover object-center"
                   />
@@ -37,7 +37,7 @@ const About = (props) => {
                </div>
                <div className=" w-full">
                   <img
-                     src="src\assets\images\about2.jpg"
+                     src="https://wxnmwtambphlaobvcbaa.supabase.co/storage/v1/object/public/images/images/8543918D-D235-4968-BADE-CC3D638968A9.JPG"
                      alt="coffee"
                      className="w-full h-[400px] object-cover object-center"
                   />
@@ -58,7 +58,7 @@ const About = (props) => {
                </div>
                <div className=" w-full">
                   <img
-                     src="src\assets\images\about3.jpg"
+                     src="https://wxnmwtambphlaobvcbaa.supabase.co/storage/v1/object/public/images/images/IMG_3983.jpg"
                      alt="coffee"
                      className="w-full h-[400px] object-cover object-center"
                   />
