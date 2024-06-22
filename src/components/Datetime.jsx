@@ -18,7 +18,7 @@ const Datetime = () => {
                <h3>
                   Hari {date.toLocaleDateString("id-ID", { weekday: "long" })},
                </h3>
-               <h2>Bulan {date.toLocaleDateString()}</h2>
+               <h2>Tanggal {date.toLocaleDateString("en-GB")}</h2>
             </div>
             <h1>
                Jam{" "}

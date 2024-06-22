@@ -135,7 +135,7 @@ const Transaction = () => {
                                     selectedOrder.created_at
                                  ).toLocaleDateString("en-GB")}
                               </p>
-                              <p>{selectedOrder.customer_detail.first_name}</p>
+                              <p>{selectedOrder.customer_detail.name}</p>
                            </div>
                         </div>
                         <div className="border-b pb-2 flex-grow overflow-auto">

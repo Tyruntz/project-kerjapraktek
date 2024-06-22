@@ -46,24 +46,36 @@ const Keranjang = () => {
    const [requestSuccess, setRequestSuccess] = useState(false);
 
    useEffect(() => {
-
       if (tokenFix) {
-         // Memanggil Midtrans Snap
-         window.snap.pay(tokenFix);
-
-         // Melakukan permintaan ke server setelah mendapatkan token
-         const postData = async () => {};
-
-         postData();
+          window.snap.pay(tokenFix, {
+              onSuccess: function (result) {
+                  console.log("Payment Success:", result);
+                  alert("Pembayaran Berhasil!");
+                  setRequestSuccess(true); // Set state setelah pembayaran sukses
+              },
+              onPending: function (result) {
+                  console.log("Payment Pending:", result);
+                  alert("Pembayaran Sedang Diproses...");
+              },
+              onError: function (result) {
+                  console.error("Payment Error:", result);
+                  alert("Pembayaran Gagal. Silakan coba lagi.");
+              },
+              onClose: function () {
+                  console.log("Payment popup closed");
+                  alert("Pembayaran dibatalkan.");
+              }
+          });
       }
-   }, [tokenFix]);
+  }, [tokenFix]);
 
-   useEffect(() => {
+  // Menggunakan useEffect untuk menangani tindakan setelah requestSuccess berubah
+  useEffect(() => {
       if (requestSuccess) {
-         alert("Berhasil melakukan checkout");
-         window.location.reload();
+          alert("Berhasil melakukan checkout");
+          window.location.reload(); // Reload halaman setelah pembayaran selesai
       }
-   }, [requestSuccess]);
+  }, [requestSuccess]);
 
    const [dataDiri, setDataDiri] = useState({
       nama: "",
@@ -259,8 +271,8 @@ const Keranjang = () => {
                         !dataDiri.nama ||
                         !dataDiri.nohp ||
                         !dataDiri.email
-                           ? "bg-gray-300 text-white rounded-md p-2 w-full"
-                           : "bg-blue-500 text-white rounded-md p-2 w-full"
+                           ? "bg-gray-300 text-white rounded-md p-2 w-full mb-12"
+                           : "bg-blue-500 text-white rounded-md p-2 w-full mb-12"
                      }
                      disabled={
                         !$cartItems.length ||
@@ -272,34 +284,34 @@ const Keranjang = () => {
                      }
                      onClick={async (e) => {
                         e.preventDefault();
-
+                    
                         const form = document.querySelector("form");
-                        const orderId =
-                           form.querySelector('input[name="id"]').value;
                         const data = new FormData(form);
                         const objData = Object.fromEntries(data);
                         const res = await fetch("/api/checkout.json", {
-                           method: "POST",
-                           body: JSON.stringify(objData),
+                            method: "POST",
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(objData),
                         });
                         const requestData = await res.json();
-
+                    
                         if (requestData.success) {
-                           const pilahToken = requestData.token;
-                           const getToken = JSON.stringify(pilahToken);
-                           const parseToken = JSON.parse(getToken);
-                           const token = parseToken.token;
-                           setToken(token);
-                           
+                            const token = requestData.token;
+                            setToken(token);
+                            // Menjalankan Snap.js untuk melakukan pembayaran
+                            
                         } else {
-                           alert("Gagal melakukan checkout");
-                           console.log(requestData);
+                            alert("Gagal melakukan checkout");
+                            console.log(requestData);
                         }
-                     }}
+                    }}
+                    
                   >
                      Checkout
                   </button>
-                  <div id="token"></div>
+                  
                </form>
             </footer>
          </div>

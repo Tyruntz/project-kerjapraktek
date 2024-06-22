@@ -32,7 +32,7 @@ export const PUT: APIRoute = async ({ request }) => {
    try {
       const { error } = await supabase
          .from("order")
-         .update({ status })
+         .update({ status_pesanan: status})
          .eq("id", id);
 
       if (error) {

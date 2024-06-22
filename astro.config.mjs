@@ -4,6 +4,7 @@ import node from "@astrojs/node";
 import icon from "astro-icon";
 import react from "@astrojs/react";
 import alpinejs from "@astrojs/alpinejs";
+import vercel from '@astrojs/vercel/serverless'
 
 
 
@@ -12,9 +13,8 @@ import alpinejs from "@astrojs/alpinejs";
 export default defineConfig({
   integrations: [tailwind(), icon(), react(), alpinejs()],
   output: "server",
-  adapter: node({
-    mode: "standalone"
-  }),
+  adapter: vercel(),
+  
   
   
 });

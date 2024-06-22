@@ -108,7 +108,8 @@ const Dashboard = () => {
                         <th>Order ID</th>
                         <th>Customer Name</th>
                         <th>Table Number</th>
-                        <th>Status</th>
+                        <th>Status Pembayaran</th>
+                        <th>Status Pesanan</th>
                      </tr>
                   </thead>
                   <tbody className="overflow-auto">
@@ -123,9 +124,10 @@ const Dashboard = () => {
                            key={order.id}
                         >
                            <td>{order.id}</td>
-                           <td>{order.customer_detail.first_name}</td>
+                           <td>{order.customer_detail.name}</td>
                            <td>{order.table}</td>
-                           <td>{order.status}</td>
+                           <td>{order.status_pembayaran}</td>
+                           <td>{order.status_pesanan}</td>
                         </tr>
                      ))}
                   </tbody>
@@ -154,7 +156,7 @@ const Dashboard = () => {
                            <h1>Item Details :</h1>
                            <ul className="px-2 overflow-y-auto">
                               {selectedOrder.item_detail.map((item) => (
-                                 <div className="flex justify-between">
+                                 <div key={item.id} className="flex justify-between">
                                     <li key={item.id}>
                                        {item.name} x {item.quantity}
                                     </li>
