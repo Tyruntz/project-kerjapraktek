@@ -1,1 +1,0 @@
-import"./hoisted.B8e_A8KY.js";document.addEventListener("astro:page-load",()=>{const t=document.querySelectorAll("#delete"),d=document.querySelector("input[name='id']"),o=document.getElementById("modal-delete");t.forEach(e=>{e.addEventListener("click",()=>{o.showModal(),d.value=e.value})})});
