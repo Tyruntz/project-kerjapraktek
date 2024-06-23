@@ -1,62 +1,31 @@
 ---
-import Kategori from "../../components/Kategori.astro";
 import Layout from "../../layouts/Layout.astro";
-import { supabase } from "../../services/supabase";
+
 import Keranjang from "../../components/Keranjang.jsx";
-import CardMenu from "../../components/CardMenu.jsx";
-import { useEffect, useState } from "react";
+
 import DaftarMenu from "../../components/DaftarMenu";
-
-
-//get data kategori
-const { 
-   data, 
-   error
- } = await supabase.from("kategori").select();
-async function getMenuByCategory(categoryId) {
-   //get data menu by category
-   const { data, error } = await supabase
-      .from("menus")
-      .select(
-         `
-      id,
-      nama,
-      harga_panas,
-      harga_dingin,
-      kategori_id,
-      imageurl
-      
-    `
-      )
-      .eq("kategori_id", categoryId);
-
-   if (error) {
-      console.error("Error:", error);
-      return;
-   }
-
-   return data;
-}
-
-const req = Astro.request;
-if (req.method === "POST") {
-   
-   
-}
-
-
 ---
-
 
 <Layout title="Menu">
    <header
       class="fixed h-12 top-0 w-full bg-[#000000] flex justify-between items-center p-2"
-   ><a class="text-white" href="/"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></a>
+   >
+      <a class="text-white" href="/"
+         ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#FFFFFF"
+            ><path
+               d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"
+            ></path></svg
+         ></a
+      >
       <h1 class="text-white">Daftar Menu</h1>
-      <Keranjang client:load/>
+      <Keranjang client:load />
    </header>
-   <DaftarMenu client:load/>
-   
+   <DaftarMenu client:load />
 </Layout>
 
 <style>

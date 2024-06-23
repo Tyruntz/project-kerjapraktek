@@ -7,6 +7,7 @@ import "./keranjang.css";
 
 const Keranjang = () => {
    const [table, setTable] = useState(0);
+   
 
    useEffect(() => {
       // Ambil nilai 'meja' dari URL
@@ -34,6 +35,7 @@ const Keranjang = () => {
 
    function handleCart() {
       isCartOpen.set(!$isCartOpen);
+      
 
       const cart = document.querySelector(".cart");
       cart.classList.toggle("active");
@@ -46,12 +48,13 @@ const Keranjang = () => {
    const [requestSuccess, setRequestSuccess] = useState(false);
 
    useEffect(() => {
+      
       if (tokenFix) {
           window.snap.pay(tokenFix, {
               onSuccess: function (result) {
                   console.log("Payment Success:", result);
-                  alert("Pembayaran Berhasil!");
-                  setRequestSuccess(true); // Set state setelah pembayaran sukses
+                  window.location.href = "/checkout";
+                  // Set state setelah pembayaran sukses
               },
               onPending: function (result) {
                   console.log("Payment Pending:", result);
@@ -72,7 +75,7 @@ const Keranjang = () => {
   // Menggunakan useEffect untuk menangani tindakan setelah requestSuccess berubah
   useEffect(() => {
       if (requestSuccess) {
-          alert("Berhasil melakukan checkout");
+          
           window.location.reload(); // Reload halaman setelah pembayaran selesai
       }
   }, [requestSuccess]);
@@ -82,6 +85,8 @@ const Keranjang = () => {
       nohp: "",
       email: "",
    });
+
+
 
    return (
       <>
