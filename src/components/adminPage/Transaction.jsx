@@ -86,7 +86,7 @@ const Transaction = () => {
                         <th>Order ID</th>
                      </tr>
                   </thead>
-                  <tbody className="overflow-auto">
+                  <tbody className="overflow-auto max-h-[340px]">
                      {filteredTransactions.length === 0 ? (
                         <tr>
                            <td colSpan="3">Tidak ada transaksi</td>
@@ -148,7 +148,7 @@ const Transaction = () => {
                                     <th className="py-1 text-right">Jumlah</th>
                                  </tr>
                               </thead>
-                              <tbody>
+                              <tbody className="overflow-y-auto max-h-[150px]">
                                  {selectedOrder.item_detail.map((item) => (
                                     <tr key={item.id} className="border-b">
                                        <td className="py-1">{item.name}</td>

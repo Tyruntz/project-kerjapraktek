@@ -1,7 +1,5 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ListPesanan from "../ListPesanan";
-
 
 const Dashboard = () => {
    const [date, setDate] = useState(new Date());
@@ -72,22 +70,40 @@ const Dashboard = () => {
 
    useEffect(() => {
       const fetchOrders = async () => {
-         const response = await fetch("api/getOrders.json");
-         const data = await response.json();
-         setOrders(data.data);
+         try {
+            const response = await fetch("api/getOrders.json");
+            if (!response.ok) {
+               throw new Error("Failed to fetch orders");
+            }
+            const data = await response.json();
+            // Filter orderan berdasarkan tanggal hari ini
+            const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            const filteredOrders = data.data.filter(order => {
+               // Misalnya order.date adalah string ISO seperti "2024-06-25T12:00:00Z"
+               // Ubah ke objek Date terlebih dahulu sebelum membandingkan
+               const orderDate = new Date(order.created_at); // Ubah format sesuai dengan format tanggal dari API
+               return orderDate.getFullYear() === today.getFullYear() &&
+                  orderDate.getMonth() === today.getMonth() &&
+                  orderDate.getDate() === today.getDate();
+            });
+            setOrders(filteredOrders);
+         } catch (error) {
+            console.error("Error fetching orders:", error);
+         }
       };
-
+   
       fetchOrders(); // Fetch orders immediately
-
+   
       const interval = setInterval(fetchOrders, 5000); // Fetch orders every 5 seconds
-
+   
       return () => clearInterval(interval);
-   }, []);
+   }, [date]); // Tambahkan date ke dependencies untuk fetch ulang saat tanggal berubah
 
+   // Tampilkan pesan "belum ada orderan" jika orders kosong
    if (orders.length === 0) {
       return (
          <div className="rounded-md border place-content-center grid border-[#d1d1d3] bg-[#fefefe] h-full row-span-6">
-            <h1 className=" text-xl">Loading...</h1>
+            <h1 className=" text-xl">Belum ada orderan untuk hari ini.</h1>
          </div>
       );
    }
@@ -112,7 +128,7 @@ const Dashboard = () => {
                         <th>Status Pesanan</th>
                      </tr>
                   </thead>
-                  <tbody className="overflow-auto">
+                  <tbody className="overflow-auto max-h-[340px]">
                      {orders.map((order) => (
                         <tr
                            className={`hover:bg-gray-300 ${
@@ -154,7 +170,7 @@ const Dashboard = () => {
                      <div className="grid  grid-rows-3 gap-2 ">
                         <div className="p-2 border-y row-span-2">
                            <h1>Item Details :</h1>
-                           <ul className="px-2 overflow-y-auto">
+                           <ul className="px-2 overflow-y-auto max-h-[120px]">
                               {selectedOrder.item_detail.map((item) => (
                                  <div key={item.id} className="flex justify-between">
                                     <li key={item.id}>
