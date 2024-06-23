@@ -6,13 +6,13 @@ import About from "../components/About";
 import Kontak from "../components/Kontak";
 import Partnership from "../components/Partnership";
 import Navbar from "../components/navBar/Navbar";
-console.log(nomorMeja);
+
 ---
 
 <Layout title="Homepage">
    <main>
       <!-- <Navbar id1={"#home"} id2={"/menu"} id3={"#about"} id4={"#partner"} id5={"#contact"} client:load /> -->
-      <Navbar client:load />
+      <Navbar client:load nomorMeja={nomorMeja} />
 
       <section id="home" class="grid grid-rows-4 items-center min-h-screen">
          <div

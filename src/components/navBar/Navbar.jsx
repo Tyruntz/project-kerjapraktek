@@ -7,7 +7,7 @@ import { sectionIds } from "./sectionids.jsx";
 // import { Link, useLocation } from "react-router-dom";
 // import { useSelector } from "react-redux";
 
-const Navbar = () => {
+const Navbar = ({nomorMeja}) => {
    const [isOpen, setIsOpen] = useState(false);
    const [isSearch, setIsSearch] = useState(false);
 
