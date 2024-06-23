@@ -116,7 +116,7 @@ const Navbar = () => {
                               className="p-2 text-white hover:text-blue-400 uppercase"
                            >
                               {sectionId === "/menu" ? (
-                                 <a href="/menu">Menu</a>
+                                 <a href={`/menu?meja=${nomorMeja}`}>Menu</a>
                               ) : (
                                  <label
                                     className={
