@@ -1,0 +1,137 @@
+---
+const nomorMeja = Astro.url.searchParams.get("meja") || "1";
+import Layout from "../layouts/Layout.astro";
+import Footer from "../components/Footer";
+import About from "../components/About";
+import Kontak from "../components/Kontak";
+import Partnership from "../components/Partnership";
+import Navbar from "../components/navBar/Navbar";
+console.log(nomorMeja);
+---
+
+<Layout title="Homepage">
+   <main>
+      <!-- <Navbar id1={"#home"} id2={"/menu"} id3={"#about"} id4={"#partner"} id5={"#contact"} client:load /> -->
+      <Navbar client:load />
+
+      <section id="home" class="grid grid-rows-4 items-center min-h-screen">
+         <div
+            class="row-span-2 grid lg:justify-center grid-flow-col content-center px-5 h-full"
+         >
+            <div class="col-span-2 lg:flex font-extrabold lg:gap-4">
+               <h1 class="text-5xl lg:text-7xl">Welcome to</h1>
+               <h1 class="text-orange-500 text-5xl lg:text-7xl">Jima</h1>
+               <div
+                  class="text-right lg:flex lg:flex-col lg:items-center lg:justify-center lg:text-xl"
+               >
+                  <p class="">Inspirasi datang</p>
+                  <p>dari secangkir kopi</p>
+               </div>
+            </div>
+         </div>
+         <div class="row-span-2 h-full grid p-8">
+            <ul class="lg:flex lg:items-center lg:justify-center lg:gap-4">
+               <li
+                  class="bg-[#191919] lg:h-[100px] rounded-md text-white  p-3 mb-3 w-[300px]"
+               >
+                  <a
+                     class="flex justify-between items-center"
+                     href={`/menu?meja=${nomorMeja}`}
+                     ><div>
+                        <p>Order Now</p><p class="text-sm">
+                           Jelajahi Menu Jima.
+                        </p>
+                     </div><img
+                        src="https://wxnmwtambphlaobvcbaa.supabase.co/storage/v1/object/public/images/images/JIMA_POST_-_13.png"
+                        class="h-[40px] w-[40px]"
+                        alt=""
+                     /></a
+                  >
+               </li>
+               <li
+                  class="bg-[#191919] lg:h-[100px] rounded-md text-white  p-3 mb-3 w-[300px]"
+               >
+                  <a class="flex justify-between items-center" href="/reservasi"
+                     ><div>
+                        <p>Reservasi</p><p class="text-sm">
+                           Boking Meja Sebelum Kehabisan.
+                        </p>
+                     </div><img
+                        src="https://wxnmwtambphlaobvcbaa.supabase.co/storage/v1/object/public/images/images/JIMA_POST_-_12.png"
+                        class="h-[40px] w-[40px]"
+                        alt=""
+                     /></a
+                  >
+               </li>
+            </ul>
+         </div>
+      </section>
+      <section id="about" class="min-h-screen p-3">
+         <About client:load />
+      </section>
+      <section id="partner" class="justify-center items-center grid">
+         <Partnership client:load />
+      </section>
+      <section id="contact" class="justify-center items-center grid">
+         <Kontak client:load />
+      </section>
+      <Footer client:load />
+   </main>
+</Layout>
+
+<style>
+   #home {
+      background-image: url("https://wxnmwtambphlaobvcbaa.supabase.co/storage/v1/object/public/images/images/JIMA_POST.png");
+      background-size: cover;
+      background-position:;
+   }
+
+   main {
+      display: flex;
+      flex-direction: column;
+   }
+   .astro-a {
+      position: absolute;
+      top: -32px;
+      left: 50%;
+      transform: translatex(-50%);
+      width: 220px;
+      height: auto;
+      z-index: -1;
+   }
+
+   .text-gradient {
+      background-image: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 400%;
+      background-position: 0%;
+   }
+   .instructions {
+      margin-bottom: 2rem;
+      border: 1px solid rgba(var(--accent-light), 25%);
+      background: linear-gradient(
+         rgba(var(--accent-dark), 66%),
+         rgba(var(--accent-dark), 33%)
+      );
+      padding: 1.5rem;
+      border-radius: 8px;
+   }
+   .instructions code {
+      font-size: 0.8em;
+      font-weight: bold;
+      background: rgba(var(--accent-light), 12%);
+      color: rgb(var(--accent-light));
+      border-radius: 4px;
+      padding: 0.3em 0.4em;
+   }
+   .instructions strong {
+      color: rgb(var(--accent-light));
+   }
+   .link-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+      gap: 2rem;
+      padding: 0;
+   }
+</style>
