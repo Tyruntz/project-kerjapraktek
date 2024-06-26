@@ -23,7 +23,7 @@ const Dashboard = () => {
    function generateTransactionId() {
       const randomNumber = Math.floor(100000 + Math.random() * 900000);
       return randomNumber.toString();
-    }
+   }
 
    const updateStatus = async (orderId) => {
       const response = await fetch("api/getOrders.json", {
@@ -77,25 +77,31 @@ const Dashboard = () => {
             }
             const data = await response.json();
             // Filter orderan berdasarkan tanggal hari ini
-            const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-            const filteredOrders = data.data.filter(order => {
+            const today = new Date(
+               date.getFullYear(),
+               date.getMonth(),
+               date.getDate()
+            );
+            const filteredOrders = data.data.filter((order) => {
                // Misalnya order.date adalah string ISO seperti "2024-06-25T12:00:00Z"
                // Ubah ke objek Date terlebih dahulu sebelum membandingkan
                const orderDate = new Date(order.created_at); // Ubah format sesuai dengan format tanggal dari API
-               return orderDate.getFullYear() === today.getFullYear() &&
+               return (
+                  orderDate.getFullYear() === today.getFullYear() &&
                   orderDate.getMonth() === today.getMonth() &&
-                  orderDate.getDate() === today.getDate();
+                  orderDate.getDate() === today.getDate()
+               );
             });
             setOrders(filteredOrders);
          } catch (error) {
             console.error("Error fetching orders:", error);
          }
       };
-   
+
       fetchOrders(); // Fetch orders immediately
-   
+
       const interval = setInterval(fetchOrders, 5000); // Fetch orders every 5 seconds
-   
+
       return () => clearInterval(interval);
    }, [date]); // Tambahkan date ke dependencies untuk fetch ulang saat tanggal berubah
 
@@ -111,9 +117,9 @@ const Dashboard = () => {
    return (
       <div className="rounded-md border grid grid-rows-11 gap-1 border-[#d1d1d3] p-2 bg-[#fefefe] h-full row-span-6">
          <div className="border flex gap-2 bg-[#e2e2e4] rounded-t-md p-2">
-            <h1>Orders today </h1>
+            <h1>Orderan Hari Ini</h1>
             <h3 className="bg-white rounded-sm px-1">
-               📅{date.toLocaleDateString()}
+               📅{date.toLocaleDateString("en-GB")}
             </h3>
          </div>
          <div className="row-span-10 grid grid-cols-3 gap-1">
@@ -172,7 +178,10 @@ const Dashboard = () => {
                            <h1>Item Details :</h1>
                            <ul className="px-2 overflow-y-auto max-h-[120px]">
                               {selectedOrder.item_detail.map((item) => (
-                                 <div key={item.id} className="flex justify-between">
+                                 <div
+                                    key={item.id}
+                                    className="flex justify-between"
+                                 >
                                     <li key={item.id}>
                                        {item.name} x {item.quantity}
                                     </li>

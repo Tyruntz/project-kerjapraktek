@@ -19,7 +19,7 @@ export const addItemToCart = (item) => {
         cartItems.set([...currentItems, { ...item, quantity: 1 }]);
     }
 
-    console.log("cartItems", cartItems.get());
+    
 };
 
 export const removeItemFromCart = (itemId) => {

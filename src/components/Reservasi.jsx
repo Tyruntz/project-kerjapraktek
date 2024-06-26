@@ -29,8 +29,8 @@ const Reservasi = () => {
             <h1 className="text-2xl font-bold text-gray-700 mb-6 flex gap-2 ">
                <span>
                   <img
-                     src="src\assets\images\b42e38.png"
-                     className="w-8 h-8 object-cover rounded-full shadow-md"
+                     src="https://wxnmwtambphlaobvcbaa.supabase.co/storage/v1/object/public/images/images/logo-jima.png?t=2024-06-22T15%3A24%3A04.578Z"
+                     className="w-8 h-8 object-cover rounded-full shadow-md bg-[#191919]"
                      alt=""
                   />
                </span>

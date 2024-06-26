@@ -6,8 +6,8 @@ export const prerender = false;
 
 // Create Snap API instance
 let snap = new midtransClient.Snap({
-    isProduction: false,
-    serverKey: "SB-Mid-server-y4FbNb0yJUvHTL4hvSJ3IAF_",
+    isProduction: true,
+    serverKey: "Mid-server-iCWloPuN_yd9ZQGctGKwASLO",
 });
 
 function insertOrder(data: any) {

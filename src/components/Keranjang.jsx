@@ -5,8 +5,11 @@ import { cartItems, isCartOpen, removeItemFromCart } from "../stores/cartStore";
 import "./keranjang.css";
 
 
+
+
 const Keranjang = () => {
    const [table, setTable] = useState(0);
+   
    
 
    useEffect(() => {
@@ -65,8 +68,9 @@ const Keranjang = () => {
                   alert("Pembayaran Gagal. Silakan coba lagi.");
               },
               onClose: function () {
-                  console.log("Payment popup closed");
-                  alert("Pembayaran dibatalkan.");
+               alert("Pembayaran Dibatalkan.");
+
+                  
               }
           });
       }
