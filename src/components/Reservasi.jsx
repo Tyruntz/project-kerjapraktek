@@ -113,7 +113,7 @@ const Reservasi = () => {
                   Lanjutkan Ke Whatsapp{" "}
                   <span>
                      <img
-                        src="src\assets\icons\whatsapp.png"
+                        src="https://wxnmwtambphlaobvcbaa.supabase.co/storage/v1/object/public/images/images/whatsapp.png"
                         className="h-6 w-6 object-cover"
                         alt=""
                      />

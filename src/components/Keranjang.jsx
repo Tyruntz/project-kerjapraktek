@@ -68,6 +68,7 @@ const Keranjang = () => {
                   alert("Pembayaran Gagal. Silakan coba lagi.");
               },
               onClose: function () {
+               console.error("Payment Cancel:", result);
                alert("Pembayaran Dibatalkan.");
 
                   
