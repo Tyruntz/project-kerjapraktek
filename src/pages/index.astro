@@ -16,29 +16,23 @@ import Navbar from "../components/navBar/Navbar";
     <section id="home" class="hero">
       <div class="hero-bg"></div>
       <div class="hero-overlay"></div>
-      <div class="hero-grain"></div>
 
       <div class="hero-inner">
-        <!-- Left content -->
         <div class="hero-content">
           <div class="hero-eyebrow">
             <span class="hero-eyebrow-line"></span>
             Est. 2023 · Pontianak
             <span class="hero-eyebrow-line"></span>
           </div>
-
           <h1 class="hero-headline">
             <span class="hero-h-sub">Welcome to</span>
             <span class="hero-h-main">Jima</span>
             <span class="hero-h-accent">Coffee House</span>
           </h1>
-
           <p class="hero-tagline">
             Inspirasi datang dari<br/>secangkir kopi buatan hati
           </p>
-
-          <div class="hero-divider"></div>
-
+          <div class="hero-divider-gold"></div>
           <div class="hero-ctas">
             <a class="hero-btn-primary" href={`/menu?meja=${nomorMeja}`}>
               <span>Order Now</span>
@@ -46,13 +40,10 @@ import Navbar from "../components/navBar/Navbar";
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
             </a>
-            <a class="hero-btn-secondary" href="/reservasi">
-              Reservasi Meja
-            </a>
+            <a class="hero-btn-secondary" href="/reservasi">Reservasi Meja</a>
           </div>
         </div>
 
-        <!-- Right badge -->
         <div class="hero-badge-wrap">
           <div class="hero-badge">
             <div class="hero-badge-ring"></div>
@@ -65,7 +56,6 @@ import Navbar from "../components/navBar/Navbar";
         </div>
       </div>
 
-      <!-- Bottom info strip -->
       <div class="hero-strip">
         <div class="hero-strip-inner">
           <div class="hero-strip-item">
@@ -90,268 +80,184 @@ import Navbar from "../components/navBar/Navbar";
         </div>
       </div>
 
-      <!-- Scroll indicator -->
-      <div class="hero-scroll">
+      <div class="hero-scroll-ind">
         <div class="hero-scroll-line"></div>
-        <span class="hero-scroll-label">Scroll</span>
+        <span class="hero-scroll-lbl">Scroll</span>
       </div>
     </section>
 
-    <section id="about" class="section-about">
-      <About client:load />
-    </section>
-
-    <section id="partner">
-      <Partnership client:load />
-    </section>
-
-    <section id="contact">
-      <Kontak client:load />
-    </section>
-
+    <section id="about"><About client:load /></section>
+    <section id="partner"><Partnership client:load /></section>
+    <section id="contact"><Kontak client:load /></section>
     <Footer client:load />
   </main>
 </Layout>
 
 <style is:global>
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@400;500;600;700&display=swap');
+  /* Scoped to homepage hero only — all selectors are unique enough */
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@400;500;600;700&display=swap');
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  main { display: flex; flex-direction: column; }
-
-  /* ── HERO ── */
   .hero {
     min-height: 100vh;
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    overflow: hidden;
     font-family: 'Montserrat', sans-serif;
+    overflow: hidden;
   }
-
   .hero-bg {
     position: absolute; inset: 0;
     background: url("https://ujchqhvrzsuscnkdwvyi.supabase.co/storage/v1/object/public/images/images/JIMA_POST.png") center/cover no-repeat;
-    transform: scale(1.05);
-    animation: heroZoom 12s ease-out forwards;
+    animation: heroZoom 14s ease-out forwards;
   }
   @keyframes heroZoom {
     from { transform: scale(1.08); }
     to   { transform: scale(1.0); }
   }
-
   .hero-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(
-      135deg,
-      rgba(10,8,6,0.88) 0%,
-      rgba(10,8,6,0.60) 50%,
-      rgba(10,8,6,0.40) 100%
-    );
+    background: linear-gradient(135deg, rgba(10,8,6,0.90) 0%, rgba(10,8,6,0.65) 55%, rgba(10,8,6,0.45) 100%);
   }
-
-  .hero-grain {
-    position: absolute; inset: 0; pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    opacity: 0.5;
-  }
-
   .hero-inner {
     position: relative; z-index: 2;
-    max-width: 1280px; margin: 0 auto;
-    padding: 120px 60px 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 60px;
-    flex: 1;
+    max-width: 1280px; margin: 0 auto; width: 100%;
+    padding: 140px 60px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 60px; flex: 1;
   }
-
-  /* Content */
-  .hero-content { max-width: 580px; }
-
+  .hero-content { max-width: 600px; }
   .hero-eyebrow {
-    display: flex; align-items: center; gap: 12px;
-    font-size: 8px; letter-spacing: 5px; text-transform: uppercase;
-    color: rgba(212,168,83,0.7); font-weight: 600;
-    margin-bottom: 28px;
+    display: flex; align-items: center; gap: 14px;
+    font-size: 9px; letter-spacing: 5px; text-transform: uppercase;
+    color: rgba(212,168,83,0.75); font-weight: 600; margin-bottom: 30px;
     animation: fadeUp 0.8s ease both;
   }
   .hero-eyebrow-line {
-    flex: 1; max-width: 40px; height: 1px;
-    background: rgba(212,168,83,0.3);
+    display: block; width: 36px; height: 1px;
+    background: rgba(212,168,83,0.35); flex-shrink: 0;
   }
-
   .hero-headline {
-    display: flex; flex-direction: column;
-    gap: 0; margin-bottom: 24px;
+    display: flex; flex-direction: column; margin-bottom: 24px;
     animation: fadeUp 0.8s 0.15s ease both;
   }
   .hero-h-sub {
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(12px, 1.5vw, 16px);
-    font-weight: 400; letter-spacing: 4px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
-    margin-bottom: 4px;
+    font-size: clamp(11px, 1.4vw, 14px); font-weight: 400;
+    letter-spacing: 5px; text-transform: uppercase;
+    color: rgba(255,255,255,0.35); margin-bottom: 8px;
   }
   .hero-h-main {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(72px, 12vw, 130px);
+    font-size: clamp(80px, 13vw, 140px);
     font-weight: 300; color: #fff;
-    line-height: 0.9; letter-spacing: -2px;
+    line-height: 0.88; letter-spacing: -3px; display: block;
   }
   .hero-h-accent {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(18px, 2.5vw, 26px);
+    font-size: clamp(16px, 2.2vw, 24px);
     font-weight: 300; font-style: italic;
-    color: #d4a853; letter-spacing: 4px;
-    margin-top: 4px;
+    color: #d4a853; letter-spacing: 5px; margin-top: 10px; display: block;
   }
-
   .hero-tagline {
-    font-size: clamp(13px, 1.5vw, 15px);
-    line-height: 1.7; color: rgba(255,255,255,0.45);
-    margin-bottom: 32px;
-    animation: fadeUp 0.8s 0.3s ease both;
+    font-size: clamp(13px, 1.4vw, 15px); line-height: 1.75;
+    color: rgba(255,255,255,0.42); margin-bottom: 32px;
+    animation: fadeUp 0.8s 0.28s ease both;
   }
-
-  .hero-divider {
+  .hero-divider-gold {
     width: 48px; height: 1px;
     background: linear-gradient(to right, #d4a853, transparent);
-    margin-bottom: 32px;
-    animation: fadeUp 0.8s 0.35s ease both;
+    margin-bottom: 32px; animation: fadeUp 0.8s 0.33s ease both;
   }
-
   .hero-ctas {
     display: flex; gap: 12px; flex-wrap: wrap;
-    animation: fadeUp 0.8s 0.45s ease both;
+    animation: fadeUp 0.8s 0.44s ease both;
   }
   .hero-btn-primary {
     display: inline-flex; align-items: center; gap: 10px;
-    padding: 15px 32px;
+    padding: 14px 30px;
     background: linear-gradient(135deg, #b8651a, #d4a853);
     color: #fff; text-decoration: none;
-    font-size: 10px; font-weight: 700; letter-spacing: 2px;
-    text-transform: uppercase; border-radius: 2px;
-    transition: all 0.3s;
+    font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+    border-radius: 2px; transition: all 0.3s;
   }
   .hero-btn-primary:hover {
-    box-shadow: 0 12px 40px rgba(184,101,26,0.45);
-    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(184,101,26,0.45); transform: translateY(-2px);
   }
   .hero-btn-secondary {
-    display: inline-flex; align-items: center;
-    padding: 15px 32px;
-    border: 1px solid rgba(255,255,255,0.2);
-    color: rgba(255,255,255,0.7); text-decoration: none;
-    font-size: 10px; font-weight: 600; letter-spacing: 2px;
-    text-transform: uppercase; border-radius: 2px;
-    transition: all 0.3s;
+    display: inline-flex; align-items: center; padding: 14px 30px;
+    border: 1px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.65); text-decoration: none;
+    font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase;
+    border-radius: 2px; transition: all 0.3s;
   }
-  .hero-btn-secondary:hover {
-    border-color: #d4a853; color: #d4a853;
-    background: rgba(212,168,83,0.06);
-  }
+  .hero-btn-secondary:hover { border-color: #d4a853; color: #d4a853; background: rgba(212,168,83,0.06); }
 
   /* Badge */
-  .hero-badge-wrap {
-    flex-shrink: 0;
-    animation: fadeIn 1.2s 0.6s ease both;
-  }
+  .hero-badge-wrap { flex-shrink: 0; animation: fadeIn 1.4s 0.6s ease both; }
   .hero-badge {
-    width: 180px; height: 180px;
-    position: relative;
+    width: 200px; height: 200px; position: relative;
     display: flex; align-items: center; justify-content: center;
     animation: rotateSlow 30s linear infinite;
   }
   @keyframes rotateSlow { to { transform: rotate(360deg); } }
   .hero-badge-ring {
-    position: absolute; inset: 0;
-    border-radius: 50%;
-    border: 1px solid rgba(212,168,83,0.25);
-    background: conic-gradient(
-      from 0deg,
-      rgba(212,168,83,0.08) 0%,
-      rgba(212,168,83,0.02) 50%,
-      rgba(212,168,83,0.08) 100%
-    );
+    position: absolute; inset: 0; border-radius: 50%;
+    border: 1px solid rgba(212,168,83,0.2);
   }
   .hero-badge-inner {
     animation: rotateSlow 30s linear infinite reverse;
-    display: flex; flex-direction: column;
-    align-items: center; gap: 4px;
-    text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center;
   }
-  .hero-badge-icon { font-size: 32px; margin-bottom: 4px; }
-  .hero-badge-text {
-    font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
-    color: #d4a853; font-weight: 700;
-  }
+  .hero-badge-icon { font-size: 36px; margin-bottom: 6px; }
+  .hero-badge-text { font-size: 8px; letter-spacing: 4px; text-transform: uppercase; color: #d4a853; font-weight: 700; }
   .hero-badge-text2 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.6);
-    letter-spacing: 2px;
+    font-size: 20px; font-weight: 300; color: rgba(255,255,255,0.5); letter-spacing: 3px;
   }
 
   /* Strip */
   .hero-strip {
     position: relative; z-index: 2;
     border-top: 1px solid rgba(255,255,255,0.06);
-    background: rgba(10,8,6,0.6);
-    backdrop-filter: blur(10px);
+    background: rgba(10,8,6,0.75); backdrop-filter: blur(12px);
   }
   .hero-strip-inner {
-    max-width: 1280px; margin: 0 auto;
-    padding: 24px 60px;
-    display: flex; align-items: center; gap: 0;
-    flex-wrap: wrap;
+    max-width: 1280px; margin: 0 auto; padding: 22px 60px;
+    display: flex; align-items: center;
   }
   .hero-strip-item {
     flex: 1; display: flex; flex-direction: column;
-    align-items: center; gap: 4px; padding: 8px 20px;
-    min-width: 100px;
+    align-items: center; gap: 5px; padding: 6px 16px;
   }
   .hero-strip-num {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 26px; font-weight: 300;
-    color: #d4a853; line-height: 1;
+    font-size: 28px; font-weight: 300; color: #d4a853; line-height: 1;
   }
   .hero-strip-label {
-    font-size: 8px; letter-spacing: 2px;
-    text-transform: uppercase; color: rgba(255,255,255,0.3);
-    font-weight: 600;
+    font-size: 8px; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,0.28); font-weight: 600;
   }
-  .hero-strip-sep {
-    width: 1px; height: 40px;
-    background: rgba(255,255,255,0.08);
-  }
+  .hero-strip-sep { width: 1px; height: 44px; background: rgba(255,255,255,0.07); flex-shrink: 0; }
 
   /* Scroll indicator */
-  .hero-scroll {
-    position: absolute; right: 40px; bottom: 100px;
-    z-index: 2;
-    display: flex; flex-direction: column;
-    align-items: center; gap: 8px;
+  .hero-scroll-ind {
+    position: absolute; right: 44px; bottom: 110px; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
   }
   .hero-scroll-line {
-    width: 1px; height: 60px;
+    width: 1px; height: 64px;
     background: linear-gradient(to bottom, rgba(212,168,83,0.6), transparent);
-    animation: scrollPulse 2s ease-in-out infinite;
+    animation: scrollPulse 2.2s ease-in-out infinite;
   }
   @keyframes scrollPulse {
-    0%, 100% { opacity: 0.3; transform: scaleY(1); }
-    50% { opacity: 1; transform: scaleY(1.2); transform-origin: top; }
+    0%, 100% { opacity: 0.3; }
+    50%       { opacity: 1; }
   }
-  .hero-scroll-label {
-    font-size: 7px; letter-spacing: 3px;
-    text-transform: uppercase; color: rgba(255,255,255,0.25);
-    writing-mode: vertical-rl;
+  .hero-scroll-lbl {
+    font-size: 7px; letter-spacing: 3px; text-transform: uppercase;
+    color: rgba(255,255,255,0.2); writing-mode: vertical-rl;
   }
 
-  /* Animations */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -361,18 +267,14 @@ import Navbar from "../components/navBar/Navbar";
     to   { opacity: 1; }
   }
 
-  /* Section */
-  .section-about { background: #fff; }
-
-  /* Responsive */
-  @media(max-width: 900px) {
-    .hero-inner { padding: 100px 24px 40px; flex-direction: column; align-items: flex-start; }
+  @media (max-width: 900px) {
+    .hero-inner { padding: 110px 24px 40px; flex-direction: column; align-items: flex-start; }
     .hero-badge-wrap { display: none; }
-    .hero-strip-inner { padding: 20px 24px; }
-    .hero-scroll { display: none; }
+    .hero-strip-inner { padding: 18px 24px; }
+    .hero-scroll-ind { display: none; }
   }
-  @media(max-width: 480px) {
+  @media (max-width: 480px) {
     .hero-strip-sep { display: none; }
-    .hero-strip-item { min-width: 80px; }
+    .hero-strip-num { font-size: 22px; }
   }
 </style>
