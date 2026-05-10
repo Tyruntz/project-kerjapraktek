@@ -1,76 +1,116 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "./sideBar/Sidebar";
 import Dashboard from "./adminPage/Dashboard";
 import Transaction from "./adminPage/Transaction";
 import Menu from "./adminPage/Menu";
 import Report from "./adminPage/Report";
-
-
-import Datetime from "./Datetime";
+import "./admin.css";
 
 const Admin = () => {
-   const [activeComponent, setActiveComponent] = useState("Dashboard");
-   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
-   const handleItemClick = (componentName) => {
-      setActiveComponent(componentName);
+  const [activeComponent, setActiveComponent] = useState("Dashboard");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [date, setDate] = useState(new Date());
 
-   };
+  useEffect(() => {
+    const timer = setInterval(() => setDate(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
 
-   const handleLogout = async () => {
-      try {
-        const response = await fetch('/api/logout.json', {
-          method: 'POST',
-        });
-  
-        if (response.ok) {
-          // Handle successful logout, misalnya redirect ke halaman login
-          window.location.href = '/login';
-        } else {
-          // Handle logout error
-          console.error('Logout failed:', response.statusText);
-        }
-      } catch (error) {
-        console.error('Logout error:', error);
-      }
-    };
-    
-   return (
-      <div className="flex">
-         <Sidebar
-            activeComponent={activeComponent}
-            onItemClick={handleItemClick}
-         />
+  const handleItemClick = (name) => {
+    if (name === "Logout") {
+      handleLogout();
+      return;
+    }
+    setActiveComponent(name);
+    setSidebarOpen(false);
+  };
 
-         <div className="bg-[#d1d1d3] grid grid-rows-7 gap-2 w-full h-screen p-2">
-            <header className="w-full grid grid-cols-5 px-3 rounded-md border border-[#d1d1d3] bg-[#fefefe]">
-               <div className="flex gap-3 col-span-3 items-center  p-2">
-                  <h1>Welcome</h1>
-               </div>
-               <div className="flex items-center ">
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("/api/logout.json", { method: "POST" });
+      if (res.ok) window.location.href = "/login";
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
-               <Datetime />
-               </div>
-               
-               <div className="flex gap-2 justify-center items-center">
-               <h1>Admin</h1>
-                <button onClick={()=>{
-                  handleLogout();
-                }}>
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
-                </button>
+  const pageLabels = {
+    Dashboard: "Dashboard",
+    Transaction: "Riwayat Transaksi",
+    Menu: "Manajemen Menu",
+    Report: "Laporan Penjualan",
+  };
 
-               </div>
-            </header>
+  return (
+    <div className="admin-root">
+      {/* Overlay mobile */}
+      {sidebarOpen && (
+        <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)} />
+      )}
 
-            {activeComponent === "Dashboard" && <Dashboard />}
-            {activeComponent === "Transaction" && <Transaction />}
-            {activeComponent === "Menu" && <Menu />}
-            {activeComponent === "Report" && <Report />}
-         </div>
+      <Sidebar
+        activeComponent={activeComponent}
+        onItemClick={handleItemClick}
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+      />
+
+      <div className="admin-main">
+        {/* Topbar */}
+        <header className="admin-topbar">
+          <div className="topbar-left">
+            <button
+              className="hamburger-btn"
+              onClick={() => setSidebarOpen(true)}
+              aria-label="Buka sidebar"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+            <div>
+              <h1 className="topbar-title">{pageLabels[activeComponent] || activeComponent}</h1>
+              <p className="topbar-sub">Jima Coffee Admin Panel</p>
+            </div>
+          </div>
+          <div className="topbar-right">
+            <div className="topbar-datetime">
+              <span className="topbar-time">
+                {date.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })}
+              </span>
+              <span className="topbar-date">
+                {date.toLocaleDateString("id-ID", { weekday: "short", day: "numeric", month: "short" })}
+              </span>
+            </div>
+            <button className="topbar-icon-btn" title="Notifikasi">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+              </svg>
+            </button>
+            <button className="topbar-logout-btn" onClick={handleLogout} title="Logout">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16,17 21,12 16,7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+              </svg>
+              <span>Keluar</span>
+            </button>
+          </div>
+        </header>
+
+        {/* Content */}
+        <main className="admin-content">
+          {activeComponent === "Dashboard" && <Dashboard />}
+          {activeComponent === "Transaction" && <Transaction />}
+          {activeComponent === "Menu" && <Menu />}
+          {activeComponent === "Report" && <Report />}
+        </main>
       </div>
-   );
+    </div>
+  );
 };
 
 export default Admin;
