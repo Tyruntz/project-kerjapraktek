@@ -8,20 +8,21 @@ import DaftarMenu from "../../components/DaftarMenu";
 
 <Layout title="Menu">
    <header
-      class="fixed h-12 top-0 w-full bg-[#000000] flex justify-between items-center p-2"
+      class="fixed z-50 h-12 top-0 w-full bg-[#000000] flex justify-between items-center p-2"
    >
-      <a class="text-white" href="/"
-         ><svg
+      <a class="text-white" href="/">
+         <svg
             xmlns="http://www.w3.org/2000/svg"
             height="24px"
             viewBox="0 -960 960 960"
             width="24px"
             fill="#FFFFFF"
-            ><path
+         >
+            <path
                d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"
-            ></path></svg
-         ></a
-      >
+            ></path>
+         </svg>
+      </a>
       <h1 class="text-white">Daftar Menu</h1>
       <Keranjang client:load />
    </header>
