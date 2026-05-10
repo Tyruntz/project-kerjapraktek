@@ -109,9 +109,9 @@ const Sidebar = ({ activeComponent, onItemClick, isOpen, onClose }) => {
       {/* Footer user */}
       <div className="sidebar-footer">
         <div className="sidebar-user">
-          <div className="user-avatar">YP</div>
+          <div className="user-avatar">J</div>
           <div>
-            <div className="user-name">Yoga Prayoga</div>
+            <div className="user-name">JIMA</div>
             <div className="user-role-label">Administrator</div>
           </div>
         </div>
