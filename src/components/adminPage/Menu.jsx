@@ -68,7 +68,7 @@ const Menu = () => {
 
                await uploadStream(fileBlob, { path: `images/${file.name}` });
 
-               const imageurl = `https://wxnmwtambphlaobvcbaa.supabase.co/storage/v1/object/public/images/images/${file.name}`;
+               const imageurl = `https://ujchqhvrzsuscnkdwvyi.supabase.co/storage/v1/object/public/images/images/${file.name}`;
                formData.append("imageurl", imageurl);
 
                // Continue with form submission after image upload
@@ -136,7 +136,7 @@ const Menu = () => {
             uploadStream(fileBlob, { path: `images/${file.name}` });
          };
       };
-      const imageurl = `https://wxnmwtambphlaobvcbaa.supabase.co/storage/v1/object/public/images/images/${file.name}`;
+      const imageurl = `https://ujchqhvrzsuscnkdwvyi.supabase.co/storage/v1/object/public/images/images/${file.name}`;
       formData.append("imageurl", imageurl);
 
       const objData = Object.fromEntries(formData);

@@ -9,7 +9,7 @@ const Sidebar = ({ activeComponent, onItemClick }) => {
             <div className="flex flex-col justify-center items-center">
                <img
                   className="h-[80px] w-[80px] object-cover rounded-full"
-                  src="https://wxnmwtambphlaobvcbaa.supabase.co/storage/v1/object/public/images/images/logo-jima.png?t=2024-06-22T15%3A24%3A04.578Z"
+                  src="https://ujchqhvrzsuscnkdwvyi.supabase.co/storage/v1/object/public/images/images/logo-jima.png?t=2024-06-22T15%3A24%3A04.578Z"
                   alt=""
                />
                <h1 className="text-white">Jima Coffee</h1>

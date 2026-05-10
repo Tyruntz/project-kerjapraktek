@@ -63,7 +63,7 @@ const Navbar = ({nomorMeja}) => {
                <div className="pl-2 flex items-center gap-2 uppercase hover:font-bold">
                   <img
                      className="w-10 h-10 object-cover rounded-full"
-                     src="https://wxnmwtambphlaobvcbaa.supabase.co/storage/v1/object/public/images/images/logo-jima.png?t=2024-06-22T15%3A24%3A04.578Z"
+                     src="https://ujchqhvrzsuscnkdwvyi.supabase.co/storage/v1/object/public/images/images/logo-jima.png?t=2024-06-22T15%3A24%3A04.578Z"
                      alt=""
                   />
                   <span className="text-xl text-white">Jima</span>
