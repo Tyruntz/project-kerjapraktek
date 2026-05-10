@@ -111,7 +111,7 @@ const Transaction = () => {
               <div>
                 <div style={{ fontSize: "10px", color: "var(--text-muted)", letterSpacing: "1px", textTransform: "uppercase", fontWeight: 700, marginBottom: "8px" }}>Info Customer</div>
                 {[
-                  ["Order ID", selectedOrder.id?.slice(-8)],
+                  ["Order ID", String(selectedOrder.id)],
                   ["Tanggal", new Date(selectedOrder.created_at).toLocaleDateString("id-ID")],
                   ["Nama", selectedOrder.customer_detail?.name],
                   ["Meja", selectedOrder.table],

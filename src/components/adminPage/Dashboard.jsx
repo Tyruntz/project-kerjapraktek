@@ -229,7 +229,7 @@ const Dashboard = () => {
                       onClick={() => setSelectedOrder(selectedOrder?.id === order.id ? null : order)}
                       className={selectedOrder?.id === order.id ? "selected" : ""}
                     >
-                      <td className="order-id-cell">#{order.id.slice(-6)}</td>
+                      <td className="order-id-cell">#{String(order.id)}</td>
                       <td>{order.customer_detail?.name || "—"}</td>
                       <td>{order.table}</td>
                       <td>{payBadge(order.status_pembayaran)}</td>
