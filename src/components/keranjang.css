@@ -12,7 +12,7 @@
    flex-direction: column;
 }
 
-/* Scoped to .cart children only */
+/* Scoped to .cart children only biar nggak bocor */
 .cart > header {
    padding: 20px;
    background-color: #f1f1f1;
@@ -29,6 +29,7 @@
    gap: 5px;
 }
 
+/* Specific buat card yang ada di dalem keranjang */
 .cart .card {
    background-color: #fff;
    border: 1px solid #ccc;
