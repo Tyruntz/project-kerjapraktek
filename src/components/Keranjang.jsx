@@ -40,8 +40,8 @@ const Keranjang = () => {
       isCartOpen.set(!$isCartOpen);
       
 
-      const cart = document.querySelector(".cart");
-      cart.classList.toggle("active");
+      // const cart = document.querySelector(".cart");
+      // cart.classList.toggle("active");
    }
    const total = $cartItems.reduce(
       (acc, item) => acc + item.price * item.quantity,
@@ -121,7 +121,7 @@ const Keranjang = () => {
             </span>
          </button>
 
-         <div className="cart w-full lg:w-[35rem] fixed right-[-100%] bg-white top-12 z-50">
+         <div className={`cart w-full lg:w-[35rem] fixed bg-white top-12 bottom-0 z-[100] transition-all duration-300 ease-in-out flex flex-col ${$isCartOpen ? "right-0" : "-right-full"}`}>
             <header>
                <div className="head grid place-content-center font-semibold uppercase">
                   <h1>Keranjang</h1>
