@@ -2,190 +2,145 @@ import React, { useState, useEffect } from "react";
 import { supabase } from "../../services/supabase";
 
 const Transaction = () => {
-   const [transactions, setTransactions] = useState([]);
-   const [search, setSearch] = useState("");
-   const [filteredTransactions, setFilteredTransactions] = useState([]);
-   const [selectedOrder, setSelectedOrder] = useState(null);
-   const [loading, setLoading] = useState(true);
+  const [transactions, setTransactions] = useState([]);
+  const [filtered, setFiltered] = useState([]);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
-   const handleSearch = () => {
-      setFilteredTransactions(
-         transactions.filter((transaksi) => transaksi.tanggal.includes(search))
-      );
-   };
+  useEffect(() => {
+    const fetch_ = async () => {
+      const res = await fetch("api/getTransaksi.json");
+      const data = await res.json();
+      setTransactions(data.data || []);
+      setFiltered(data.data || []);
+      setLoading(false);
+    };
+    fetch_();
+  }, []);
 
-   const getOrderById = async (orderId) => {
-      const { data, error } = await supabase
-         .from("order")
-         .select("*")
-         .eq("id", orderId);
+  const handleSearch = () => {
+    if (!search) { setFiltered(transactions); return; }
+    setFiltered(transactions.filter((t) => t.tanggal?.includes(search)));
+  };
 
-      if (error) {
-         console.error("Error fetching order data:", error.message);
-         return;
-      }
+  const getOrder = async (orderId) => {
+    const { data } = await supabase.from("order").select("*").eq("id", orderId);
+    if (data?.[0]) setSelectedOrder(data[0]);
+  };
 
-      setSelectedOrder(data[0]);
-   };
+  if (loading) return <div className="loading-state"><div className="spinner" /> Memuat transaksi...</div>;
 
-   useEffect(() => {
-      const fetchTransactions = async () => {
-         const response = await fetch("api/getTransaksi.json");
-         const data = await response.json();
-         setTransactions(data.data);
-         setFilteredTransactions(data.data); // Initialize with all transactions
-         setLoading(false);
-      };
-
-      fetchTransactions();
-   }, []);
-
-   if (loading) {
-      return (
-         <div className="rounded-md border place-content-center grid border-[#d1d1d3] bg-[#fefefe] h-full row-span-6">
-            <h1 className=" text-xl">Loading...</h1>
-         </div>
-      );
-   }
-
-   return (
-      <div className="rounded-md border grid grid-rows-11 gap-1 border-[#d1d1d3] p-2 bg-[#fefefe] h-full row-span-6">
-         <div className="border flex gap-2 bg-[#e2e2e4] rounded-t-md p-2">
-            <p>Cari Berdasarkan Tanggal Transaksi </p>
-            <input
-               type="date"
-               name="date"
-               id="date"
-               className="py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent"
-               required
-               value={search}
-               onChange={(e) => setSearch(e.target.value)}
-            />
-            <button
-               className="bg-[#6f0000] hover:bg-[#9c0000] rounded-md"
-               onClick={handleSearch}
-            >
-               <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24px"
-                  viewBox="0 -960 960 960"
-                  width="24px"
-                  fill="#fefefe"
-               >
-                  <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
-               </svg>
-            </button>
-         </div>
-         <div className="row-span-10 grid grid-cols-3 gap-1">
-            <div className="border-[#d1d1d3] rounded-sm border bg-white col-span-2 h-full">
-               <table className="rounded-sm w-full">
-                  <thead className="bg-[#e1dbd6]">
-                     <tr>
-                        <th>Transaksi ID</th>
-                        <th>Tanggal Transaksi</th>
-                        <th>Order ID</th>
-                     </tr>
-                  </thead>
-                  <tbody className="overflow-auto max-h-[340px]">
-                     {filteredTransactions.length === 0 ? (
-                        <tr>
-                           <td colSpan="3">Tidak ada transaksi</td>
-                        </tr>
-                     ) : (
-                        filteredTransactions.map((transaksi) => (
-                           <tr
-                              key={transaksi.id}
-                              className={`hover:bg-gray-300 ${
-                                 selectedOrder?.id === transaksi.order_id
-                                    ? "bg-gray-200"
-                                    : ""
-                              }`}
-                              onClick={() => getOrderById(transaksi.order_id)}
-                           >
-                              <td>{transaksi.id}</td>
-                              <td>
-                                 {new Date(
-                                    transaksi.tanggal
-                                 ).toLocaleDateString("en-GB")}
-                              </td>
-                              <td>{transaksi.order_id}</td>
-                           </tr>
-                        ))
-                     )}
-                  </tbody>
-               </table>
-            </div>
-            <div className="col-span-1 border border-[#d1d1d3] rounded-sm bg-white h-full p-4 text-sm">
-               {selectedOrder && filteredTransactions.length > 0 ? (
-                  <div className="flex flex-col h-full">
-                     <h1 className="text-center text-base font-semibold mb-4">
-                        Detail Order
-                     </h1>
-                     <div className="flex flex-col gap-4 flex-grow">
-                        <div className="flex justify-between border-b pb-2">
-                           <div>
-                              <p>Order ID:</p>
-                              <p>Tanggal Order:</p>
-                              <p>Nama Customer:</p>
-                           </div>
-                           <div className="text-right">
-                              <p>{selectedOrder.id}</p>
-                              <p>
-                                 {new Date(
-                                    selectedOrder.created_at
-                                 ).toLocaleDateString("en-GB")}
-                              </p>
-                              <p>{selectedOrder.customer_detail.name}</p>
-                           </div>
-                        </div>
-                        <div className="border-b pb-2 flex-grow overflow-auto">
-                           <p className="font-semibold mb-2">Item:</p>
-                           <table className="w-full text-left">
-                              <thead>
-                                 <tr className="border-b">
-                                    <th className="py-1">Nama</th>
-                                    <th className="py-1 text-right">Harga</th>
-                                    <th className="py-1 text-right">Jumlah</th>
-                                 </tr>
-                              </thead>
-                              <tbody className="overflow-y-auto max-h-[150px]">
-                                 {selectedOrder.item_detail.map((item) => (
-                                    <tr key={item.id} className="border-b">
-                                       <td className="py-1">{item.name}</td>
-                                       <td className="py-1 text-right">
-                                          {item.price.toLocaleString("id-ID", {
-                                             style: "currency",
-                                             currency: "IDR",
-                                          })}
-                                       </td>
-                                       <td className="py-1 text-right">
-                                          {item.quantity}
-                                       </td>
-                                    </tr>
-                                 ))}
-                              </tbody>
-                           </table>
-                        </div>
-                        <div className="pt-2">
-                           <p className="text-right font-semibold">
-                              Total:{" "}
-                              {selectedOrder.total.toLocaleString("id-ID", {
-                                 style: "currency",
-                                 currency: "IDR",
-                              })}
-                           </p>
-                        </div>
-                     </div>
-                  </div>
-               ) : (
-                  <div className="grid place-content-center h-full bg-white p-3">
-                     <h1>Pilih transaksi untuk melihat detail orderan</h1>
-                  </div>
-               )}
-            </div>
-         </div>
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+      {/* Toolbar */}
+      <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", alignItems: "center" }}>
+        <input
+          type="date"
+          className="form-input"
+          style={{ maxWidth: "180px" }}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <button className="btn btn-primary" onClick={handleSearch}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Cari
+        </button>
+        {search && (
+          <button className="btn btn-secondary" onClick={() => { setSearch(""); setFiltered(transactions); }}>Reset</button>
+        )}
+        <span style={{ marginLeft: "auto", fontSize: "12px", color: "var(--text-muted)" }}>{filtered.length} transaksi</span>
       </div>
-   );
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 300px", gap: "14px" }}>
+        <style>{`
+          @media(max-width:800px){.txn-grid{grid-template-columns:1fr!important}}
+        `}</style>
+
+        {/* Table */}
+        <div className="panel txn-grid">
+          <div className="panel-header">
+            <div className="panel-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              Riwayat Transaksi
+            </div>
+          </div>
+          <div style={{ overflowX: "auto" }}>
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>ID Transaksi</th>
+                  <th>Tanggal</th>
+                  <th>Order ID</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.length === 0 ? (
+                  <tr><td colSpan={3} style={{ textAlign: "center", padding: "32px", color: "var(--text-muted)" }}>Tidak ada transaksi</td></tr>
+                ) : filtered.map((t) => (
+                  <tr
+                    key={t.id}
+                    onClick={() => getOrder(t.order_id)}
+                    className={selectedOrder?.id === t.order_id ? "selected" : ""}
+                  >
+                    <td style={{ fontWeight: 700, color: "var(--accent)" }}>#{t.id}</td>
+                    <td>{new Date(t.tanggal).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })}</td>
+                    <td style={{ color: "var(--text-muted)", fontSize: "11px" }}>{t.order_id}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Detail */}
+        <div className="panel">
+          <div className="panel-header">
+            <div className="panel-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Detail Order
+            </div>
+          </div>
+          {!selectedOrder ? (
+            <div className="empty-state">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+              <p>Klik transaksi untuk detail</p>
+            </div>
+          ) : (
+            <div style={{ padding: "16px", display: "flex", flexDirection: "column", gap: "12px" }}>
+              <div>
+                <div style={{ fontSize: "10px", color: "var(--text-muted)", letterSpacing: "1px", textTransform: "uppercase", fontWeight: 700, marginBottom: "8px" }}>Info Customer</div>
+                {[
+                  ["Order ID", selectedOrder.id?.slice(-8)],
+                  ["Tanggal", new Date(selectedOrder.created_at).toLocaleDateString("id-ID")],
+                  ["Nama", selectedOrder.customer_detail?.name],
+                  ["Meja", selectedOrder.table],
+                ].map(([k, v]) => (
+                  <div key={k} style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", padding: "5px 0", borderBottom: "1px solid var(--border)" }}>
+                    <span style={{ color: "var(--text-muted)" }}>{k}</span>
+                    <span style={{ fontWeight: 600 }}>{v}</span>
+                  </div>
+                ))}
+              </div>
+              <div>
+                <div style={{ fontSize: "10px", color: "var(--text-muted)", letterSpacing: "1px", textTransform: "uppercase", fontWeight: 700, marginBottom: "8px" }}>Item</div>
+                {selectedOrder.item_detail?.map((item, i) => (
+                  <div key={i} style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", padding: "4px 0" }}>
+                    <span style={{ color: "var(--text-secondary)" }}>{item.name} ×{item.quantity}</span>
+                    <span style={{ fontWeight: 600 }}>{(item.price * item.quantity).toLocaleString("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 })}</span>
+                  </div>
+                ))}
+                <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px", fontWeight: 700, paddingTop: "10px", borderTop: "1px solid var(--border)", marginTop: "6px" }}>
+                  <span>Total</span>
+                  <span style={{ color: "var(--accent)" }}>{selectedOrder.total?.toLocaleString("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 })}</span>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Transaction;
