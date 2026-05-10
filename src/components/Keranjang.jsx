@@ -121,7 +121,7 @@ const Keranjang = () => {
             </span>
          </button>
 
-         <div className="cart w-full lg:w-[35rem] absolute right-[-100%] bg-white top-full">
+         <div className="cart w-full lg:w-[35rem] fixed right-[-100%] bg-white top-12 z-50">
             <header>
                <div className="head grid place-content-center font-semibold uppercase">
                   <h1>Keranjang</h1>
